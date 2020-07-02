@@ -31,9 +31,11 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
   -- design
   -- development
   -- deployment
-  -- Add analytics
-  -- Favicon & Meta
-  -- Install fonts
+
+## Non essential want-to-do's
+
+- Static Explainer Site
+  -- Change favicon (maybe emoji lightning bolt)
 
 ## Complete
 
@@ -42,6 +44,9 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
   -- Set up nextjs boilerplate
   -- Set up domain
   -- Validate dns is set up in 48hrs (thurs 13:15pm)
+  -- Add analytics
+  -- Favicon & Meta
+  -- Install fonts
 
 # Resources, References, tools
 
