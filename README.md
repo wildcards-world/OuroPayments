@@ -26,16 +26,14 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
 
 ## Outstanding
 
-- Static Explainer Site
-  -- content
-  -- design
-  -- development
-  -- deployment
+- Static Explainer Site  
+  -- about section
+  -- link to dapp
 
 ## Non essential want-to-do's
 
 - Static Explainer Site
-  -- Change favicon (maybe emoji lightning bolt)
+  -- Redo favicon (maybe emoji lightning bolt)
 
 ## Complete
 
@@ -47,9 +45,17 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
   -- Add analytics
   -- Favicon & Meta
   -- Install fonts
+  -- Continuos deployment
 
-# Resources, References, tools
+## Further Work
+
+# Resources, References, tools, etc
 
 - [MD cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 - [Hosting](https://render.com)
 - [Domains](https://domains.google.com)
+- [NextJs Framework](https://nextjs.org/)
+
+# Disclaimer
+
+I have not received any permissions to use the logo, this project in its current form remains a proof of concept and is under active development.
