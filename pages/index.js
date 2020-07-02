@@ -2,6 +2,9 @@ import react, { useEffect, useState } from "react";
 import { initGA, logPageView } from "../components/GoogleAnalytics";
 import Meta from "../components/Meta";
 import About from "../components/About";
+import { CSSTransition } from "react-transition-group";
+
+import "../css/styles.css";
 
 const Home = () => {
   useEffect(() => {
@@ -13,6 +16,7 @@ const Home = () => {
   });
 
   const [about, showAbout] = useState(false);
+  const [overview, showOverview] = useState(false);
 
   return (
     <div className="container">
@@ -20,20 +24,38 @@ const Home = () => {
       <div className="corner">
         <div className="beta-flag">BETA</div>
       </div>
+      <button onClick={() => showAbout(!about)}>About</button>
       <main className="content">
+        <div style={{ width: "500px" }} />
         <img
           src="/assets/logo.png"
           style={{ width: about ? "200px" : "500px" }}
         />
-        {about ? (
-          <About />
-        ) : (
-          <span id="overview">
-            <h1>Ouro Payments</h1>
-            <h4>Privacy preserving continuous payment streams</h4>
-          </span>
-        )}
-        <span onClick={() => showAbout(!about)}>About</span>
+        <div style={{ position: "relative" }}>
+          <CSSTransition
+            in={!about}
+            timeout={3000}
+            classNames="about"
+            unmountOnExit
+            appear={true}
+          >
+            <div className="absolute-pos">
+              <h1>Ouro Payments</h1>
+              <h4>Privacy preserving continuous payment streams</h4>
+            </div>
+          </CSSTransition>
+          <CSSTransition
+            in={about}
+            timeout={3000}
+            classNames="about"
+            unmountOnExit
+            appear={true}
+          >
+            <div className="absolute-pos">
+              <About />
+            </div>
+          </CSSTransition>
+        </div>
       </main>
 
       <style jsx>{`
@@ -75,6 +97,12 @@ const Home = () => {
         }
         .content h4 {
           // font-family: "Open Sans", sans-serif;
+        }
+        .absolute-pos {
+          position: absolute;
+          width: 100%;
+          top: 0;
+          left: 0;
         }
       `}</style>
 

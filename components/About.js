@@ -7,7 +7,7 @@ const About = () => {
       <style jsx>
         {`
           #about {
-            width: 60%;
+            width: 100%;
             margin: auto;
           }
         `}
