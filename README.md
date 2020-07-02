@@ -1,9 +1,10 @@
 # Ouro Payments
 
-- temp domain - https://ouro-payments-static-site.onrender.com/
-- domain in progress - https://ouropayments.com
+https://ouropayments.com
 
 ![Ouro Payments Banner](./public/assets/ouro-payments-banner.png)
+
+- [Brainstorming](https://docs.google.com/presentation/d/1d2tp1rsIX18wcOnb2jw50Y1nxk5WkAGiVk_tnERi0vQ/edit?usp=sharing)
 
 # What
 
@@ -30,7 +31,9 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
   -- design
   -- development
   -- deployment
-  -- Validate dns is set up in 48hrs (thurs 13:15pm)
+  -- Add analytics
+  -- Favicon & Meta
+  -- Install fonts
 
 ## Complete
 
@@ -38,3 +41,10 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
   -- Set up hosting (trying render.com for the first time)
   -- Set up nextjs boilerplate
   -- Set up domain
+  -- Validate dns is set up in 48hrs (thurs 13:15pm)
+
+# Resources, References, tools
+
+- [MD cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+- [Hosting](https://render.com)
+- [Domains](https://domains.google.com)
