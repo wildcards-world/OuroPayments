@@ -4,7 +4,7 @@ https://ouropayments.com
 
 ![Ouro Payments Banner](./public/assets/ouro-payments-banner.png)
 
-- [Brainstorming](https://docs.google.com/presentation/d/1d2tp1rsIX18wcOnb2jw50Y1nxk5WkAGiVk_tnERi0vQ/edit?usp=sharing)
+[Brainstorming](https://docs.google.com/presentation/d/1d2tp1rsIX18wcOnb2jw50Y1nxk5WkAGiVk_tnERi0vQ/edit?usp=sharing)
 
 # What
 
@@ -22,18 +22,31 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
 - Car rental - Pay each minute you use the car. (\*Thought: Pay based on km driven metric rather than just time)
 - Equipment rental - Pay each minute you are in the water surfing rather than being confined to a strict time schedule
 
+# Get started
+
+start static site
+
+```
+yarn dev
+```
+
 # Project todo list
 
 ## Outstanding
 
-- Static Explainer Site  
-  -- about section
-  -- link to dapp
+- Static Explainer Site
+
+- Dapp
+  -- Run a raiden node (goerli)
+
+- Mobile App
+  -- Setup boilerplate
 
 ## Non essential want-to-do's
 
 - Static Explainer Site
   -- Redo favicon (maybe emoji lightning bolt)
+  -- About Section Copy
 
 ## Complete
 
@@ -46,6 +59,8 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
   -- Favicon & Meta
   -- Install fonts
   -- Continuos deployment
+  -- about section
+  -- button to dapp
 
 ## Further Work
 
@@ -59,3 +74,7 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
 # Disclaimer
 
 I have not received any permissions to use the logo, this project in its current form remains a proof of concept and is under active development.
+
+```
+
+```
