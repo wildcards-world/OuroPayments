@@ -35,9 +35,13 @@ yarn dev
 ## Outstanding
 
 - Static Explainer Site
+  -- font for buttons
+  -- button background image size optimize
 
 - Dapp
   -- Run a raiden node (goerli)
+  -- Create stream ui
+  -- add use cases to about (with type package)
 
 - Mobile App
   -- Setup boilerplate
@@ -74,7 +78,3 @@ yarn dev
 # Disclaimer
 
 I have not received any permissions to use the logo, this project in its current form remains a proof of concept and is under active development.
-
-```
-
-```
