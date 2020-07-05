@@ -1,4 +1,4 @@
-# Notes about raide api
+# Notes about raiden api
 
 ### [Primary source](https://docs.raiden.network/raiden-api-1/resources)
 

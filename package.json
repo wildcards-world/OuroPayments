@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-
     "dev": "cd ui && npm run dev",
     "test": "cd ui && npm run dev",
     "build": "cd ui && yarn build",
     "start": "cd ui && yarn start",
-    "postinstall": "cd ui && yarn"
-
+    "postinstall": "cd ui && yarn",
+    "raiden-node": "cd raiden-node && make start",
+    "backend-install": "cd backend && yarn",
+    "backend": "cd backend && yarn start",
+    "desktop-install": "cd desktopApp && yarn",
+    "desktop": "cd desktop && yarn start"
   }
 }

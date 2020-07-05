@@ -33,7 +33,7 @@ const Home = () => {
         />
         <div>
           <div
-            style={{ position: "relative", height: about ? "140px" : "190px" }}
+            style={{ position: "relative", height: about ? "160px" : "210px" }}
           >
             <CSSTransition
               in={!about}
