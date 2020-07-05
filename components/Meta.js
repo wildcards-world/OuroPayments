@@ -3,7 +3,7 @@ import Head from "next/head";
 const Meta = () => (
   <Head>
     <title>Ouro Payments | Privacy Preserving Payments</title>
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon_v2.ico" />
     <link
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;500&family=Roboto+Slab:wght@500;700;900&display=swap"
       rel="stylesheet"

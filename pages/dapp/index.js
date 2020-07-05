@@ -25,7 +25,7 @@ const Overview = () => {
                 padding: "10%",
                 color: "white",
                 textAlign: "center",
-                transform: "translateY(2px)",
+                transform: "translateY(5px)",
               }}
             >
               GET STARTED

@@ -78,10 +78,22 @@ function Layout({ Component, pageProps }) {
           text-decoration: underline;
         }
 
+        input:focus,
+        textarea:focus,
+        select:focus {
+          outline: none;
+        }
+        input,
+        textarea,
+        select {
+          border: 1px solid #eeeeee88;
+          padding: 10px;
+        }
+
         .button {
           font-weight: bold;
-          height: 50px;
-          width: 125px;
+          height: 60px;
+          width: 150px;
           margin: 10px;
           font-size: 12px;
           background-image: url("/assets/button-background.png");
