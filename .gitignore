@@ -37,3 +37,7 @@ passwordfile
 
 # Raiden binary
 raiden-node/raiden*
+
+#bucklescript:
+backend/lib
+.merlin
