@@ -54,8 +54,7 @@ yarn dev
 
 ## Non essential want-to-do's
 
-- Static Explainer Site
-  -- Redo favicon (maybe emoji lightning bolt)
+- Static Explainer Site  
   -- About Section Copy
 
 - Dapp
@@ -76,6 +75,7 @@ yarn dev
   -- about section
   -- button to dapp
   -- button background image size optimize
+  -- Redo favicon (maybe emoji lightning bolt)
 
 - Dapp
   -- Run a raiden node (goerli)
@@ -99,6 +99,7 @@ yarn dev
 - [Deploy Custom Token ERC20 on Goerli](https://docs.raiden.network/using-raiden-on-testnet/use-custom-token)
 - [Raiden API docs](https://docs.raiden.network/raiden-api-1/)
 - [Raiden Resources, community curated](https://github.com/raiden-network/awesome-raiden)
+- [Goerli OuroDAI test token](https://goerli.etherscan.io/address/0xb38981469b7235c42dda836295be8825eb4a6389)
 
 # Disclaimer
 
