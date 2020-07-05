@@ -51,7 +51,7 @@ const Home = () => {
                     {[
                       "Hourly salary payments",
                       "Daily home rental payments",
-                      "Service subscriptions",
+                      "Paying service subscriptions every minute",
                     ].map((text) => (
                       <Typist
                         key={text}
