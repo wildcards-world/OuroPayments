@@ -69,11 +69,8 @@ yarn build
 
 ## Non essential want-to-do's
 
-#### Static Explainer Site
-
-- About Section Copy
-- font for buttons
-- add use cases to about (with type package)
+- Static Explainer Site  
+  -About Section Copy
 
 #### Dapp
 
@@ -121,7 +118,9 @@ yarn build
 - [Raiden API docs](https://docs.raiden.network/raiden-api-1/)
 - [Raiden Resources, community curated](https://github.com/raiden-network/awesome-raiden)
 - [Goerli OuroDAI test token](https://goerli.etherscan.io/address/0xb38981469b7235c42dda836295be8825eb4a6389)
-- [NextJS & Electron](https://medium.com/@ofarukcaki/using-next-js-with-electron-f949b175da88)
+  <<<<<<< HEAD
+- # [NextJS & Electron](https://medium.com/@ofarukcaki/using-next-js-with-electron-f949b175da88)
+  > > > > > > > cadeb6f1d597d58683c27bb08243e280dffaeecf
 
 # Disclaimer
 
