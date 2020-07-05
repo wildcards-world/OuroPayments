@@ -10,7 +10,7 @@ https://ouropayments.com (Demo on Goerli using OuroDAI tokens)
 
 Ouro Payments is a privacy preserving payment stream service built on Raiden Network developed during the Protect Privacy hackathon fulfilling the bounty Use Raiden for fast privacy preserving payments.
 
-The project draws inspiration from Sablier.finance but leverages the inherent privacy and scalability that Raiden Network provides to create a truly continuous payment streaming service.
+The project draws inspiration from [Sablier.finance](https://Sablier.finance) but leverages the inherent privacy and scalability that Raiden Network provides to create a truly continuous payment streaming service.
 
 Continuous payment streams allow people to capitalize on the opportunity cost of money owed to them. This can be best explained through a hypothetical example. Imagine Alice receives her salary at the end of each month. Her first day of the month salary is owed to her for ~30 days by her company. If she were to receive her salary for the first day she worked of the month she would be able to earn 30 days interest on that days salary. Individually these are small amounts but collectively account for a large amount. Monthly payments are archaic, inefficient and totally abstract that have occured from the historical pain point of making payments and accounting. Continuous streams are automated and reduce the efficiencies of staggered payments.
 
@@ -155,6 +155,7 @@ yarn desktop
 - [Raiden Resources, community curated](https://github.com/raiden-network/awesome-raiden)
 - [Goerli OuroDAI test token](https://goerli.etherscan.io/address/0xb38981469b7235c42dda836295be8825eb4a6389)
 - [NextJS & Electron](https://medium.com/@ofarukcaki/using-next-js-with-electron-f949b175da88)
+- [Api Notes](./api-notes.md)
 
 # Disclaimer
 
