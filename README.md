@@ -1,8 +1,8 @@
 # Ouro Payments
 
-https://ouropayments.com
+https://ouropayments.com (Demo on Goerli using OuroDAI tokens)
 
-![Ouro Payments Banner](./public/assets/ouro-payments-banner.png)
+![Ouro Payments Banner](./ui/public/assets/ouro-payments-banner.png)
 
 [Brainstorming](https://docs.google.com/presentation/d/1d2tp1rsIX18wcOnb2jw50Y1nxk5WkAGiVk_tnERi0vQ/edit?usp=sharing)
 
@@ -24,62 +24,83 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
 
 # Get started
 
+This repo contains 3 individual applications.
+
+## The UI
+
 start static site (inside the 'ui' folder)
 
 ```
 yarn dev
 ```
 
+Build into static files
+
+```
+yarn build
+```
+
+(This will export the website into /ui/out)
+
+## The Backend
+
 # Project todo list
 
 ## Outstanding
 
-- Static Explainer Site
-  -- font for buttons
-  -- add use cases to about (with type package)
-  -- clean css
+#### Static Explainer Site
 
-- Dapp
-  -- Create stream ui  
-  --- Create channel steps
-  -- Optimize for mobile
-  -- Add state management (redux)
-  -- Progress bar
+- clean css
 
-* Mobile App
-  -- Setup boilerplate
-  -- Design UI
-  -- Implement UI
-  -- Read data from backend
+#### Dapp
+
+- Create stream ui
+- Create channel steps
+- Optimize for mobile
+- Add state management (redux)
+- Progress bar
+
+#### Mobile App
+
+- Setup boilerplate
+- Design UI
+- Implement UI
+- Read data from backend
 
 ## Non essential want-to-do's
 
-- Static Explainer Site  
-  -- About Section Copy
+#### Static Explainer Site
 
-- Dapp
-  -- Deploy new token
-  -- Improve stream length input ux
+- About Section Copy
+- font for buttons
+- add use cases to about (with type package)
+
+#### Dapp
+
+- Deploy new token
+- Improve stream length input ux
 
 ## Complete
 
-- Static Explainer Site
-  -- Set up hosting (trying render.com for the first time)
-  -- Set up nextjs boilerplate
-  -- Set up domain
-  -- Validate dns is set up in 48hrs (thurs 13:15pm)
-  -- Add analytics
-  -- Favicon & Meta
-  -- Install fonts
-  -- Continuos deployment
-  -- about section
-  -- button to dapp
-  -- button background image size optimize
-  -- Redo favicon (maybe emoji lightning bolt)
+#### Static Explainer Site
 
-- Dapp
-  -- Run a raiden node (goerli)
-  -- Overview with steps UI
+- Set up hosting (trying render.com for the first time)
+- Set up nextjs boilerplate
+- Set up domain
+- Validate dns is set up in 48hrs (thurs 13:15pm)
+- Add analytics
+- Favicon & Meta
+- Install fonts
+- Continuos deployment
+- about section
+- button to dapp
+- button background image size optimize
+- Redo favicon (maybe emoji lightning bolt)
+
+#### Dapp
+
+- Run a raiden node (goerli)
+- Overview with steps UI
 
 ## Further Work
 
@@ -100,6 +121,7 @@ yarn dev
 - [Raiden API docs](https://docs.raiden.network/raiden-api-1/)
 - [Raiden Resources, community curated](https://github.com/raiden-network/awesome-raiden)
 - [Goerli OuroDAI test token](https://goerli.etherscan.io/address/0xb38981469b7235c42dda836295be8825eb4a6389)
+- [NextJS & Electron](https://medium.com/@ofarukcaki/using-next-js-with-electron-f949b175da88)
 
 # Disclaimer
 

@@ -2,7 +2,7 @@ function Layout({ Component, pageProps }) {
   return (
     <div className="container">
       <div className="corner">
-        <div className="beta-flag">BETA</div>
+        <div className="beta-flag">DEMO</div>
       </div>
       <Component {...pageProps} />
       <div className="bottom-corner">
@@ -60,12 +60,13 @@ function Layout({ Component, pageProps }) {
         }
 
         a:link {
-          color: #e2cba4;
+          color: #ffcd00;
           text-decoration: none;
         }
 
         a:visited {
-          color: #e2cba4;
+          color: #ffcd00;
+          // color: #f69a00;
           text-decoration: none;
         }
 
