@@ -4,28 +4,40 @@ const Overview = () => {
   return (
     <div className="step-container">
       <Link href="/">
-        <img src="/assets/logo.png" style={{ height: "100px" }} />
+        <a style={{ margin: "auto", textAlign: "center", display: "block" }}>
+          <img src="/assets/logo.png" style={{ height: "100px" }} />
+        </a>
       </Link>
-      <h4>Step 1 </h4>
-      <p>- Create a channel</p>
-      <h4>Step 2 </h4>
-      <p>- Initiate payment stream</p>
-      <h4>Step 3 </h4>
-      <Link href="/dapp/create-channel">
-        <div className="button">
-          <div
-            style={{
-              margin: "auto",
-              padding: "10%",
-              color: "white",
-              textAlign: "center",
-              transform: "translateY(2px)",
-            }}
-          >
-            GET STARTED
+      <div style={{ margin: "2rem 0" }}>
+        <h4>⚡&emsp;Step 1 </h4>
+        <p>&emsp;&emsp;Create a channel</p>
+        <h4>⚡&emsp;Step 2 </h4>
+        <p>&emsp;&emsp;Initiate payment stream</p>
+        <h4>⚡&emsp;Step 3 </h4>
+        <p>&emsp;&emsp;Track stream</p>
+      </div>
+      <div style={{ margin: "auto" }}>
+        <Link href="/dapp/create-channel">
+          <div className="button" style={{ margin: "auto" }}>
+            <div
+              style={{
+                margin: "auto",
+                padding: "10%",
+                color: "white",
+                textAlign: "center",
+                transform: "translateY(2px)",
+              }}
+            >
+              GET STARTED
+            </div>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
+      <style jsx>{`
+        p {
+          font-weight: lighter;
+        }
+      `}</style>
     </div>
   );
 };

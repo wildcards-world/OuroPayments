@@ -80,8 +80,8 @@ function Layout({ Component, pageProps }) {
 
         .button {
           font-weight: bold;
-          height: 40px;
-          width: 100px;
+          height: 50px;
+          width: 125px;
           margin: 10px;
           font-size: 12px;
           background-image: url("/assets/button-background.png");
@@ -97,6 +97,7 @@ function Layout({ Component, pageProps }) {
           color: white;
           background-color: #33333388;
           padding: 3rem;
+          width: 440px;
           border: 1px solid #333333cc;
         }
       `}</style>

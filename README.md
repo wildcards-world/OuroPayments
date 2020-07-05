@@ -37,10 +37,12 @@ yarn dev
 - Static Explainer Site
   -- font for buttons
   -- button background image size optimize
+  -- add use cases to about (with type package)
 
 - Dapp
-  -- Create stream ui
-  -- add use cases to about (with type package)
+  -- Create stream ui  
+  --- Create channel steps
+  -- Optimize for mobile
 
 - Mobile App
   -- Setup boilerplate
@@ -73,17 +75,26 @@ yarn dev
 
 - Dapp
   -- Run a raiden node (goerli)
+  -- Overview with steps UI
 
 ## Further Work
 
+## Further Considerations
+
+- Deposit switching concern
+- Public withdrawal concern
+
 # Resources, References, tools, etc
 
+- [Brainstorming](https://docs.google.com/presentation/1d2tp1rsIX18wcOnb2jw50Y1nxk5WkAGiVk_tnERi0vQ/edit?usp=sharing)
 - [MD cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 - [Hosting](https://render.com)
 - [Domains](https://domains.google.com)
 - [NextJs Framework](https://nextjs.org/)
 - [Starting Raiden Manually](https://docs.raiden.network/installation/starting-raiden-manually)(Needed for Goerli)
 - [Deploy Custom Token ERC20 on Goerli](https://docs.raiden.network/using-raiden-on-testnet/use-custom-token)
+- [Raiden API docs](https://docs.raiden.network/raiden-api-1/)
+- [Raiden Resources, community curated](https://github.com/raiden-network/awesome-raiden)
 
 # Disclaimer
 
