@@ -74,7 +74,7 @@ const Home = () => {
               padding: "10%",
               color: "white",
               textAlign: "center",
-              transform: "translateY(2px)",
+              transform: "translateY(5px)",
             }}
           >
             {about ? "HOME" : "ABOUT"}
@@ -88,7 +88,7 @@ const Home = () => {
                 padding: "10%",
                 color: "white",
                 textAlign: "center",
-                transform: "translateY(2px)",
+                transform: "translateY(5px)",
               }}
             >
               DAPP

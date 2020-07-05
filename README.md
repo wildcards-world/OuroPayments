@@ -36,15 +36,17 @@ yarn dev
 
 - Static Explainer Site
   -- font for buttons
-  -- button background image size optimize
   -- add use cases to about (with type package)
+  -- clean css
 
 - Dapp
   -- Create stream ui  
   --- Create channel steps
   -- Optimize for mobile
+  -- Add state management (redux)
+  -- Progress bar
 
-- Mobile App
+* Mobile App
   -- Setup boilerplate
   -- Design UI
   -- Implement UI
@@ -58,6 +60,7 @@ yarn dev
 
 - Dapp
   -- Deploy new token
+  -- Improve stream length input ux
 
 ## Complete
 
@@ -72,6 +75,7 @@ yarn dev
   -- Continuos deployment
   -- about section
   -- button to dapp
+  -- button background image size optimize
 
 - Dapp
   -- Run a raiden node (goerli)
