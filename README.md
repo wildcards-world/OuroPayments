@@ -159,4 +159,4 @@ yarn desktop
 
 # Disclaimer
 
-I have not received any permissions to use the logo, this project in its current form remains a proof of concept and is under active development.
+We have not received any permissions to use the logo, this project in its current form remains a proof of concept and is under active development.
