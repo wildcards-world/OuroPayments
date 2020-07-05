@@ -13,6 +13,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-ga": "^3.0.0",
-    "react-transition-group": "^4.4.1"
+    "react-transition-group": "^4.4.1",
+    "react-typist": "^2.0.5",
+    "react-typist-loop": "^0.0.5"
   }
 }
