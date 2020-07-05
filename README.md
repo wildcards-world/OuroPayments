@@ -24,11 +24,13 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
 
 # Get started
 
-This repo contains 3 individual applications.
+This repo contains 4 individual applications.
 
 ## The UI
 
-start static site (inside the 'ui' folder)
+> The ui is the frontend app built using nextjs written in javascript
+
+start static site
 
 ```
 yarn dev
@@ -43,6 +45,40 @@ yarn build
 (This will export the website into /ui/out)
 
 ## The Backend
+
+> The backend is a rest api written in ReasonML using a hasura db
+
+start server
+
+```
+yarn backend
+```
+
+## Raiden Node
+
+> The raiden node is the node used in the demo, it requires raiden installed to run
+
+start node
+
+```
+yarn raiden-node
+```
+
+## Desktop App
+
+> The desktop app is the ui wrapped in electron, the idea behind the desktop app is that privacy and security can be maximised by isolating the app restricting access from potentially high risk extensions
+
+build app (requires the ui to be built first)
+
+```
+yarn build
+```
+
+start app
+
+```
+yarn desktop
+```
 
 # Project todo list
 
@@ -118,9 +154,7 @@ yarn build
 - [Raiden API docs](https://docs.raiden.network/raiden-api-1/)
 - [Raiden Resources, community curated](https://github.com/raiden-network/awesome-raiden)
 - [Goerli OuroDAI test token](https://goerli.etherscan.io/address/0xb38981469b7235c42dda836295be8825eb4a6389)
-  <<<<<<< HEAD
-- # [NextJS & Electron](https://medium.com/@ofarukcaki/using-next-js-with-electron-f949b175da88)
-  > > > > > > > cadeb6f1d597d58683c27bb08243e280dffaeecf
+- [NextJS & Electron](https://medium.com/@ofarukcaki/using-next-js-with-electron-f949b175da88)
 
 # Disclaimer
 
