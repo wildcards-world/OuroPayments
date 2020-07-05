@@ -3,6 +3,8 @@ import Link from "next/link";
 import { initGA, logPageView } from "../components/GoogleAnalytics";
 import Meta from "../components/Meta";
 import About from "../components/About";
+import Typist from "react-typist";
+import TypistLoop from "react-typist-loop";
 import { CSSTransition } from "react-transition-group";
 
 import "../css/styles.css";
@@ -31,7 +33,7 @@ const Home = () => {
         />
         <div>
           <div
-            style={{ position: "relative", height: about ? "100px" : "150px" }}
+            style={{ position: "relative", height: about ? "140px" : "190px" }}
           >
             <CSSTransition
               in={!about}
@@ -43,6 +45,25 @@ const Home = () => {
               <div className="absolute-pos">
                 <h1>Ouro Payments</h1>
                 <h4>Privacy preserving continuous payment streams</h4>
+                <p>
+                  <span>Use Ouro Payment streams for</span>
+                  <TypistLoop interval={1000} style={{ display: "inline" }}>
+                    {[
+                      "Hourly salary payments",
+                      "Daily home rental payments",
+                      "Paying service subscriptions every minute",
+                    ].map((text) => (
+                      <Typist
+                        key={text}
+                        startDelay={500}
+                        cursor={{ show: true }}
+                      >
+                        {text}
+                        <Typist.Backspace count={30} delay={1200} />
+                      </Typist>
+                    ))}
+                  </TypistLoop>
+                </p>
               </div>
             </CSSTransition>
             <CSSTransition
