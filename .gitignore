@@ -1,19 +1,19 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules
 /.pnp
 .pnp.js
 
 # testing
-/coverage
+ui/coverage
 
 # next.js
-/.next/
-/out/
+.next/
+ui/out/
 
 # production
-/build
+ui/build
 
 
 # misc
@@ -34,3 +34,6 @@ yarn-error.log*
 secrets
 keystore.json
 passwordfile
+
+# Raiden binary
+raiden-node/raiden*
