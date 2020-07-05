@@ -3,6 +3,8 @@ import Link from "next/link";
 import { initGA, logPageView } from "../components/GoogleAnalytics";
 import Meta from "../components/Meta";
 import About from "../components/About";
+import Typist from "react-typist";
+import TypistLoop from "react-typist-loop";
 import { CSSTransition } from "react-transition-group";
 
 import "../css/styles.css";
@@ -43,6 +45,17 @@ const Home = () => {
               <div className="absolute-pos">
                 <h1>Ouro Payments</h1>
                 <h4>Privacy preserving continuous payment streams</h4>
+                <Typist
+                  avgTypingDelay={80}
+                  startDelay={1000}
+                  cursor={{ hideWhenDone: true }}
+                >
+                  <h4>
+                    Use Ouro for salary payments{" "}
+                    <Typist.Backspace count={16} delay={1000} />
+                    car rental payments
+                  </h4>
+                </Typist>
               </div>
             </CSSTransition>
             <CSSTransition
