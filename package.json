@@ -1,11 +1,11 @@
 {
-  "name": "learn-starter",
+  "name": "ouropayents",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build && next export",
-    "start": "next start"
+    "dev": "cd ui && next dev",
+    "build": "cd ui &&  next build && next export",
+    "start": "cd ui && next start"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",

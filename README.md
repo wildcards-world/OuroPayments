@@ -24,7 +24,7 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
 
 # Get started
 
-start static site
+start static site (inside the 'ui' folder)
 
 ```
 yarn dev

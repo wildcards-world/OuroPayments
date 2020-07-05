@@ -4,7 +4,7 @@ const About = () => {
       Ouro Payments is a privacy preserving payment stream service built on{" "}
       <a href="https://raiden.network/">Raiden Network</a> developed during the{" "}
       <a href=" https://gitcoin.co/hackathon/privacy/townsquare/?tab=hackathon:15">
-        Protect Privacy hackathon
+        Gitcoin Protect Privacy hackathon
       </a>{" "}
       fulfilling the bounty{" "}
       <a href="  https://gitcoin.co/issue/raiden-network/hackathons/7/4448">
