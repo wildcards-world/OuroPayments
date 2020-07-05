@@ -33,7 +33,7 @@ const Home = () => {
         />
         <div>
           <div
-            style={{ position: "relative", height: about ? "100px" : "150px" }}
+            style={{ position: "relative", height: about ? "140px" : "190px" }}
           >
             <CSSTransition
               in={!about}
@@ -45,25 +45,25 @@ const Home = () => {
               <div className="absolute-pos">
                 <h1>Ouro Payments</h1>
                 <h4>Privacy preserving continuous payment streams</h4>
-                <h4>
-                  Use Ouro for
-                  <TypistLoop interval={1000}>
+                <p>
+                  <span>Use Ouro Payment streams for</span>
+                  <TypistLoop interval={1000} style={{ display: "inline" }}>
                     {[
-                      "Salary payments",
-                      "Car rental payments",
+                      "Hourly salary payments",
+                      "Daily home rental payments",
                       "Service subscriptions",
                     ].map((text) => (
                       <Typist
                         key={text}
                         startDelay={500}
-                        cursor={{ show: false }}
+                        cursor={{ show: true }}
                       >
                         {text}
-                        <Typist.Backspace count={25} delay={1200} />
+                        <Typist.Backspace count={30} delay={1200} />
                       </Typist>
                     ))}
                   </TypistLoop>
-                </h4>
+                </p>
               </div>
             </CSSTransition>
             <CSSTransition
