@@ -11,6 +11,8 @@ To create a keystore.json file use myetherwallet.com
 
 https://github.com/raiden-network/awesome-raiden <- A few resources
 
+Get address from keystore file
+
 ```
 sudo ./raiden --address 0xe028334D9b4168cF7411Db8862d1A50d146Ae603 --keystore-path ./ --password-file ./password.txt --eth-rpc-endpoint "https://goerli.infura.io/v3/d72f8e8bf3d847f5bd8800bc961e392b" --network-id goerli --environment-type development
 `

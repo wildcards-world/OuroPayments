@@ -39,18 +39,23 @@ yarn dev
   -- button background image size optimize
 
 - Dapp
-  -- Run a raiden node (goerli)
   -- Create stream ui
   -- add use cases to about (with type package)
 
 - Mobile App
   -- Setup boilerplate
+  -- Design UI
+  -- Implement UI
+  -- Read data from backend
 
 ## Non essential want-to-do's
 
 - Static Explainer Site
   -- Redo favicon (maybe emoji lightning bolt)
   -- About Section Copy
+
+- Dapp
+  -- Deploy new token
 
 ## Complete
 
@@ -66,6 +71,9 @@ yarn dev
   -- about section
   -- button to dapp
 
+- Dapp
+  -- Run a raiden node (goerli)
+
 ## Further Work
 
 # Resources, References, tools, etc
@@ -74,6 +82,8 @@ yarn dev
 - [Hosting](https://render.com)
 - [Domains](https://domains.google.com)
 - [NextJs Framework](https://nextjs.org/)
+- [Starting Raiden Manually](https://docs.raiden.network/installation/starting-raiden-manually)(Needed for Goerli)
+- [Deploy Custom Token ERC20 on Goerli](https://docs.raiden.network/using-raiden-on-testnet/use-custom-token)
 
 # Disclaimer
 
