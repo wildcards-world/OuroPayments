@@ -3,18 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cd ui && next dev",
-    "build": "cd ui &&  next build && next export",
-    "start": "cd ui && next start"
-  },
-  "dependencies": {
-    "@zeit/next-css": "^1.0.1",
-    "next": "9.3.5",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-ga": "^3.0.0",
-    "react-transition-group": "^4.4.1",
-    "react-typist": "^2.0.5",
-    "react-typist-loop": "^0.0.5"
+
+    "dev": "cd ui && npm run dev",
+    "test": "cd ui && npm run dev",
+    "build": "cd ui && yarn build",
+    "start": "cd ui && yarn start",
+    "postinstall": "cd ui && yarn"
+
   }
 }
