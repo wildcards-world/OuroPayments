@@ -1,0 +1,12 @@
+{
+  "name": "ouropayents",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd ui && npm run dev",
+    "test": "cd ui && npm run dev",
+    "build": "cd ui && yarn build",
+    "start": "cd ui && yarn start",
+    "postinstall": "cd ui && yarn"
+  }
+}
