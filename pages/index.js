@@ -45,17 +45,25 @@ const Home = () => {
               <div className="absolute-pos">
                 <h1>Ouro Payments</h1>
                 <h4>Privacy preserving continuous payment streams</h4>
-                <Typist
-                  avgTypingDelay={80}
-                  startDelay={1000}
-                  cursor={{ hideWhenDone: true }}
-                >
-                  <h4>
-                    Use Ouro for salary payments{" "}
-                    <Typist.Backspace count={16} delay={1000} />
-                    car rental payments
-                  </h4>
-                </Typist>
+                <h4>
+                  Use Ouro for
+                  <TypistLoop interval={1000}>
+                    {[
+                      "Salary payments",
+                      "Car rental payments",
+                      "Service subscriptions",
+                    ].map((text) => (
+                      <Typist
+                        key={text}
+                        startDelay={500}
+                        cursor={{ show: false }}
+                      >
+                        {text}
+                        <Typist.Backspace count={25} delay={1200} />
+                      </Typist>
+                    ))}
+                  </TypistLoop>
+                </h4>
               </div>
             </CSSTransition>
             <CSSTransition
