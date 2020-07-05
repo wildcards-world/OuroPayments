@@ -1,4 +1,5 @@
 import react, { useEffect, useState } from "react";
+import Link from "next/link";
 import { initGA, logPageView } from "../components/GoogleAnalytics";
 import Meta from "../components/Meta";
 import About from "../components/About";
@@ -19,11 +20,8 @@ const Home = () => {
   const [overview, showOverview] = useState(false);
 
   return (
-    <div className="container">
+    <div>
       <Meta />
-      <div className="corner">
-        <div className="beta-flag">BETA</div>
-      </div>
 
       <main className="content">
         <div style={{ width: "600px" }} />
@@ -65,6 +63,7 @@ const Home = () => {
         style={{
           display: "flex",
           flexFlow: "row nowrap",
+          justifyContent: "center",
           marginTop: about ? "80px" : "30px",
         }}
       >
@@ -81,46 +80,24 @@ const Home = () => {
             {about ? "HOME" : "ABOUT"}
           </div>
         </div>
-        <div className="button">
-          <div
-            style={{
-              margin: "auto",
-              padding: "10%",
-              color: "white",
-              textAlign: "center",
-              transform: "translateY(2px)",
-            }}
-          >
-            DAPP
+        <Link href="/dapp">
+          <div className="button">
+            <div
+              style={{
+                margin: "auto",
+                padding: "10%",
+                color: "white",
+                textAlign: "center",
+                transform: "translateY(2px)",
+              }}
+            >
+              DAPP
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
 
       <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          background-image: url("/assets/background.jpg");
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: cover;
-        }
-        .corner {
-          position: absolute;
-          font-family: "Roboto Slab", serif;
-          color: white;
-          left: 0px;
-          top: 0px;
-        }
-        .beta-flag {
-          transform: rotate(-45deg);
-          padding: 20px 12px;
-          margin: 0;
-        }
         .content {
           color: white;
           text-align: center;
@@ -147,56 +124,7 @@ const Home = () => {
           top: 0;
           left: 0;
         }
-        .button {
-          font-weight: bold;
-          height: 40px;
-          width: 100px;
-          margin: 10px;
-          font-size: 12px;
-          background-image: url("/assets/button-background.png");
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: cover;
-        }
-        .button:hover {
-          opacity: 0.7;
-          cursor: pointer;
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          background: #222;
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-
-        a:link {
-          color: #e2cba4;
-          text-decoration: none;
-        }
-
-        a:visited {
-          color: #e2cba4;
-          text-decoration: none;
-        }
-
-        a:hover {
-          color: #dbdbdb;
-          text-decoration: underline;
-        }
-
-        a:active {
-          text-decoration: underline;
-        }
+               }
       `}</style>
     </div>
   );
