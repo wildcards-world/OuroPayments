@@ -43,6 +43,10 @@ type recipientDbArray = array(recipientDbData);
 external getStreamss: (. collection) => Js.Promise.t(array(recipientDbData)) =
   "getStreams";
 
+[@bs.module "./Mongo.js"]
+external deleteStreamss: (. collection, string) => Js.Promise.t(mongoResult) =
+  "deleteStreams";
+
 // [@bs.module "cors"] external setupCors: (. unit) => unit = "default";
 [@bs.module "./Mongo.js"]
 external testMongo:
@@ -212,6 +216,20 @@ module Endpoints = {
         // OkJson(result->recipientDbArray_encode)->async;
       },
     });
+
+  [@decco.decode]
+  type body_in_del = {id: string};
+
+  let deleteStreamsEndpoint = collection =>
+    Serbet.jsonEndpoint({
+      verb: POST,
+      path: "/get-streams",
+      body_in_decode: body_in_del_decode,
+      body_out_encode: mongoResult_encode,
+      handler: ({id}, _req) => {
+        deleteStreamss(. collection, id);
+      },
+    });
 };
 
 connectMongo(.)
@@ -224,6 +242,7 @@ connectMongo(.)
            Endpoints.createStream(mongoConnection),
            Endpoints.createStreamTest(mongoConnection),
            Endpoints.getStreamsEndpoint(mongoConnection),
+           Endpoints.deleteStreamsEndpoint(mongoConnection),
          ],
        );
      ()->async;

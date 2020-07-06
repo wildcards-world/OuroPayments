@@ -59,4 +59,9 @@ const getStreams = async (streamsCollection) => {
   return streams;
 };
 
-module.exports = { MongoConnect, addStream, getStreams };
+const deleteStream = async (streamsCollection, id) => {
+  let streams = await streamsCollection.deleteOne({ _id: id });
+  return streams;
+};
+
+module.exports = { MongoConnect, addStream, getStreams, deleteStream };
