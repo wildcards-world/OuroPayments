@@ -11,6 +11,7 @@ var Scheduler = require("./Scheduler.bs.js");
 var MongoJs = require("./Mongo.js");
 var Belt_Option = require("bs-platform/lib/js/belt_Option.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
+var CustomSerbet = require("./lib/CustomSerbet.bs.js");
 
 ((require('isomorphic-fetch')));
 
@@ -108,6 +109,43 @@ function body_in_decode(v) {
         };
 }
 
+function recipientDbData_encode(v) {
+  return Js_dict.fromArray([
+              [
+                "recipient",
+                Decco.stringToJson(v.recipient)
+              ],
+              [
+                "addressTokenStream",
+                Decco.stringToJson(v.addressTokenStream)
+              ],
+              [
+                "lengthOfPayment",
+                Decco.intToJson(v.lengthOfPayment)
+              ],
+              [
+                "interval",
+                Decco.intToJson(v.interval)
+              ],
+              [
+                "rate",
+                Decco.stringToJson(v.rate)
+              ],
+              [
+                "deposit",
+                Decco.stringToJson(v.deposit)
+              ],
+              [
+                "numerOfPaymentsMade",
+                Decco.intToJson(v.numerOfPaymentsMade)
+              ],
+              [
+                "totalNumberOfPaymentsToMake",
+                Decco.intToJson(v.totalNumberOfPaymentsToMake)
+              ]
+            ]);
+}
+
 function mongoResult_encode(v) {
   return Js_dict.fromArray([[
                 "success",
@@ -116,6 +154,12 @@ function mongoResult_encode(v) {
 }
 
 var connectMongo = MongoJs.MongoConnect;
+
+function recipientDbArray_encode(v) {
+  return Decco.arrayToJson(recipientDbData_encode, v);
+}
+
+var getStreamss = MongoJs.getStreams;
 
 var testMongo = MongoJs.addStream;
 
@@ -177,7 +221,9 @@ function createStream(collection) {
                                   lengthOfPayment: lengthOfPayment,
                                   interval: interval,
                                   rate: rate,
-                                  deposit: deposit
+                                  deposit: deposit,
+                                  numerOfPaymentsMade: 0,
+                                  totalNumberOfPaymentsToMake: 100
                                 }), (function (resultMongoDb) {
                                 console.log("result from mongodb:", resultMongoDb);
                                 return fetch("http://localhost:5001/api/v1/channels", Fetch.RequestInit.make(/* Put */3, {
@@ -222,8 +268,27 @@ function createStreamTest(collection) {
                                   lengthOfPayment: lengthOfPayment,
                                   interval: interval,
                                   rate: rate,
-                                  deposit: deposit
+                                  deposit: deposit,
+                                  numerOfPaymentsMade: 0,
+                                  totalNumberOfPaymentsToMake: 100
                                 }), Async.async);
+                })
+            });
+}
+
+function getStreamsEndpoint(collection) {
+  return Serbet.endpoint(undefined, {
+              path: "/get-streams",
+              verb: /* GET */0,
+              handler: (function (_req) {
+                  return Async.let_(getStreamss(collection), (function (result) {
+                                console.log("result");
+                                console.log(result);
+                                return Async.async({
+                                            TAG: /* OkJson */4,
+                                            _0: result
+                                          });
+                              }));
                 })
             });
 }
@@ -232,16 +297,20 @@ var Endpoints = {
   body_out_encode: body_out_encode,
   createChannelRequest_encode: createChannelRequest_encode,
   createStream: createStream,
-  createStreamTest: createStreamTest
+  createStreamTest: createStreamTest,
+  getStreamsEndpoint: getStreamsEndpoint
 };
 
 connectMongo().then(function (mongoConnection) {
-      console.log("connected", mongoConnection);
-      Serbet.application(5000, {
+      console.log("connected");
+      CustomSerbet.application(5000, {
             hd: createStream(mongoConnection),
             tl: {
               hd: createStreamTest(mongoConnection),
-              tl: /* [] */0
+              tl: {
+                hd: getStreamsEndpoint(mongoConnection),
+                tl: /* [] */0
+              }
             }
           });
       return Async.async(undefined);
@@ -250,8 +319,11 @@ connectMongo().then(function (mongoConnection) {
 Scheduler.startProcess(undefined);
 
 exports.body_in_decode = body_in_decode;
+exports.recipientDbData_encode = recipientDbData_encode;
 exports.mongoResult_encode = mongoResult_encode;
 exports.connectMongo = connectMongo;
+exports.recipientDbArray_encode = recipientDbArray_encode;
+exports.getStreamss = getStreamss;
 exports.testMongo = testMongo;
 exports.Endpoints = Endpoints;
 /*  Not a pure module */

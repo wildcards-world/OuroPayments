@@ -22,6 +22,7 @@
     "bs-cron": "^1.1.0",
     "bs-fetch": "^0.6.1",
     "bs-let": "^0.1.16",
+    "cors": "^2.8.5",
     "install": "^0.13.0",
     "isomorphic-fetch": "^2.2.1",
     "mongodb": "^3.5.9",

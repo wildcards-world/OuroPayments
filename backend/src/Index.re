@@ -29,14 +29,36 @@ type recipientDbData = {
 };
 
 [@decco.encode]
+type recipientDbData = {
+  recipient: string,
+  addressTokenStream: string,
+  lengthOfPayment: int,
+  interval: int,
+  // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
+  rate: string,
+  deposit: string,
+  numerOfPaymentsMade: int,
+  totalNumberOfPaymentsToMake: int,
+};
+
+[@decco.encode]
 type mongoResult = {success: bool};
 type collection;
 
 [@bs.module "./Mongo.js"]
 external connectMongo: (. unit) => Js.Promise.t(collection) = "MongoConnect";
+
+[@decco.encode]
+type recipientDbArray = array(recipientDbData);
+
+[@bs.module "./Mongo.js"]
+external getStreamss: (. collection) => Js.Promise.t(array(recipientDbData)) =
+  "getStreams";
+
+// [@bs.module "cors"] external setupCors: (. unit) => unit = "default";
 [@bs.module "./Mongo.js"]
 external testMongo:
-  (. collection, string, body_in) => Js.Promise.t(mongoResult) =
+  (. collection, string, recipientDbData) => Js.Promise.t(mongoResult) =
   "addStream";
 
 module Endpoints = {
@@ -54,6 +76,8 @@ module Endpoints = {
     settle_timeout: string,
     reveal_timeout: string,
   };
+
+  [@bs.module] external cors: (. unit) => Express.Middleware.t = "cors";
 
   let createStream = collection =>
     Serbet.jsonEndpoint({
@@ -99,6 +123,8 @@ module Endpoints = {
               interval,
               rate,
               deposit,
+              numerOfPaymentsMade: 0,
+              totalNumberOfPaymentsToMake: 100,
             },
           );
         Js.log2("result from mongodb:", resultMongoDb);
@@ -177,22 +203,39 @@ module Endpoints = {
               interval,
               rate,
               deposit,
+              numerOfPaymentsMade: 0,
+              totalNumberOfPaymentsToMake: 100,
             },
           );
         result->async;
+      },
+    });
+  let getStreamsEndpoint = collection =>
+    Serbet.endpoint({
+      verb: GET,
+      path: "/get-streams",
+      handler: _req => {
+        let%Async result = getStreamss(. collection);
+
+        Js.log("result");
+        Js.log(result);
+
+        OkJson(result->Obj.magic)->async;
+        // OkJson(result->recipientDbArray_encode)->async;
       },
     });
 };
 
 connectMongo(.)
 |> Js.Promise.then_(mongoConnection => {
-     Js.log2("connected", mongoConnection);
+     Js.log("connected");
      let app =
-       Serbet.application(
+       CustomSerbet.application(
          ~port=5000,
          [
            Endpoints.createStream(mongoConnection),
            Endpoints.createStreamTest(mongoConnection),
+           Endpoints.getStreamsEndpoint(mongoConnection),
          ],
        );
 
