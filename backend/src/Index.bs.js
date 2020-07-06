@@ -281,8 +281,6 @@ function getStreamsEndpoint(collection) {
               verb: /* GET */0,
               handler: (function (_req) {
                   return Async.let_(getStreamss(collection), (function (result) {
-                                console.log("result");
-                                console.log(result);
                                 return Async.async({
                                             TAG: /* OkJson */4,
                                             _0: result

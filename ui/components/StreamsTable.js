@@ -402,8 +402,8 @@ const StreamsTable = () => {
   const streamContext = useContext(StreamContext);
   const { getStreams, streams } = streamContext;
 
-  const [data, setData] = React.useState(() => makeData(15));
-  const [originalData] = React.useState(data);
+  // const [data, setData] = React.useState(() => makeData(15));
+  // const [originalData] = React.useState(data);
 
   useEffect(() => {
     getStreams();
@@ -416,29 +416,29 @@ const StreamsTable = () => {
         columns: [
           {
             Header: "Receiver Address",
-            accessor: "address",
+            accessor: "recipient",
           },
           {
             Header: "Interval",
-            accessor: "streamInterval",
+            accessor: "interval",
             Filter: SelectColumnFilter,
             filter: "includes",
           },
           {
             Header: "Length",
-            accessor: "streamLength",
+            accessor: "lengthOfPayment",
             Filter: SelectColumnFilter,
             filter: "includes",
           },
           {
             Header: "Amount",
-            accessor: "amount",
+            accessor: "deposit",
             Filter: NumberRangeColumnFilter,
             filter: "between",
           },
           {
             Header: "Amount Streamed",
-            accessor: "amountStreamed",
+            accessor: "numerOfPaymentsMade",
             Filter: NumberRangeColumnFilter,
             filter: "between",
           },
@@ -452,10 +452,10 @@ const StreamsTable = () => {
     []
   );
 
-  return streams ? (
+  return streams.length > 0 ? (
     <Styles>
-      {/* <Table columns={columns} data={streams} /> */}
-      <Table columns={columns} data={originalData} />
+      <Table columns={columns} data={streams} />
+      {/* <Table columns={columns} data={originalData} /> */}
     </Styles>
   ) : (
     <p>No streams found</p>

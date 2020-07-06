@@ -205,8 +205,8 @@ module Endpoints = {
       handler: _req => {
         let%Async result = getStreamss(. collection);
 
-        Js.log("result");
-        Js.log(result);
+        // Js.log("result");
+        // Js.log(result);
 
         OkJson(result->Obj.magic)->async;
         // OkJson(result->recipientDbArray_encode)->async;
