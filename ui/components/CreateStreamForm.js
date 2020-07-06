@@ -130,7 +130,7 @@ const CreateStreamForm = () => {
       )}
       <div style={{ margin: "2rem 0" }} className="stream-form">
         <h2>Create Stream </h2>
-        <label for="address">Recipient Address</label>
+        <label htmlFor="address">Recipient Address</label>
         <input
           id="address"
           placeholder="Eg. 0xAb5801a7D...05C5B3259aeC9B"
@@ -151,7 +151,7 @@ const CreateStreamForm = () => {
             }
           }}
         />
-        <label for="token">Token</label>
+        <label htmlFor="token">Token</label>
         <select
           id="token"
           onChange={(event) => {
@@ -162,7 +162,7 @@ const CreateStreamForm = () => {
             OuroDAI
           </option>
         </select>
-        <label for="stream-length">Stream Length</label>
+        <label htmlFor="stream-length">Stream Length</label>
         <select
           id="stream-length"
           onChange={(event) => {

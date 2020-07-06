@@ -96,7 +96,6 @@ yarn desktop
 
 #### Dapp
 
-- Deploy new token
 - Improve stream length input ux
 
 ## Complete
@@ -123,6 +122,9 @@ yarn desktop
 - Create stream ui
 - Create channel steps
 - Form validation
+- Deploy new token
+- Streams dashboard
+- State management context api
 
 ## Further Work
 
