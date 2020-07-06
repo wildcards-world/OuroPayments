@@ -2,11 +2,8 @@ const { MongoClient } = require("mongodb");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const mongoUri = process.env.MONGO_URI;
 const MongoConnect = async () => {
-  const mongoUri = process.env.MONGO_URI;
-  console.log("mongoUri");
-  console.log(mongoUri);
-
   const client = new MongoClient(mongoUri, { useNewUrlParser: true });
 
   try {
@@ -57,4 +54,34 @@ const addStream = async (streamsCollection, recipientAddress, data) => {
   return { success: true, response: entry };
 };
 
-module.exports = { MongoConnect, addStream };
+// const getStreams = async (streamsCollection) => {
+//   console.log("streams");
+//   // let streams = await streamsCollection.findOne({ addressTokenStream: "2456" });
+//   let streams = await streamsCollection.find({});
+//   console.log(streams);
+//   console.log(typeof streams);
+//   return streams;
+// };
+
+const getStreams = async (streamsCollection) => {
+  var MongoClient = require("mongodb").MongoClient;
+  var url = mongoUri;
+
+  MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("ouro");
+    var query = { addressTokenStream: "2456" };
+    dbo
+      .collection("streams")
+      .find()
+      .toArray(function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        return result;
+        db.close();
+      });
+  });
+  // return streams;
+};
+
+module.exports = { MongoConnect, addStream, getStreams };
