@@ -50,7 +50,7 @@ const StreamState = (props) => {
   const getStreams = async () => {
     try {
       // setLoading();
-      const res = await axios.get(backendUrl + "/api/streams");
+      const res = await axios.get(backendUrl + "/get-streams");
 
       dispatch({
         type: GET_STREAMS,
@@ -85,6 +85,7 @@ const StreamState = (props) => {
         payload: res.data,
       });
     } catch (err) {
+      console.log(err);
       dispatch({
         type: STREAM_ERROR,
         payload: err,

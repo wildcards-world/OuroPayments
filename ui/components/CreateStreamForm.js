@@ -76,10 +76,11 @@ const CreateStreamForm = () => {
     // Request to backend with data
 
     const dataPack = {
-      recipientAddress: address,
+      recipient: address,
       addressTokenStream: token,
       lengthOfPayment: streamLength,
       interval: streamInterval,
+      rate: "10",
       deposit: amount,
     };
 
