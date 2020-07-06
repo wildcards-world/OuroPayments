@@ -43,7 +43,7 @@ module Endpoints = {
     reveal_timeout: string,
   };
 
-  let createStream = _mongoConnection =>
+  let createStream = collection =>
     Serbet.jsonEndpoint({
       verb: POST,
       path: "/create-stream",
@@ -75,6 +75,21 @@ module Endpoints = {
           ++ ", deposit - "
           ++ deposit,
         );
+
+        let%Async resultMongoDb =
+          testMongo(.
+            collection,
+            recipient,
+            {
+              recipient,
+              addressTokenStream,
+              lengthOfPayment,
+              interval,
+              rate,
+              deposit,
+            },
+          );
+        Js.log2("result from mongodb:", resultMongoDb);
 
         Fetch.fetchWithInit(
           "http://localhost:5001/api/v1/channels",

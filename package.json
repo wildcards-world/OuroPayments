@@ -10,7 +10,7 @@
     "postinstall": "cd ui && yarn",
     "raiden-node": "cd raiden-node && make start",
     "backend-install": "cd backend && yarn",
-    "backend": "cd backend && yarn start",
+    "backend": "cd backend && yarn re:watch && yarn watch",
     "desktop-install": "cd desktopApp && yarn",
     "desktop": "cd desktopApp && yarn start"
   },

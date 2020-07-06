@@ -156,32 +156,47 @@ function createChannelRequest_encode(v) {
             ]);
 }
 
-function createStream(_mongoConnection) {
+function createStream(collection) {
   return Serbet.jsonEndpoint(undefined, {
               path: "/create-stream",
               verb: /* POST */1,
               body_in_decode: body_in_decode,
               body_out_encode: body_out_encode,
               handler: (function (param, _req) {
+                  var deposit = param.deposit;
+                  var rate = param.rate;
+                  var interval = param.interval;
+                  var lengthOfPayment = param.lengthOfPayment;
+                  var addressTokenStream = param.addressTokenStream;
                   var recipient = param.recipient;
-                  console.log("recipient - " + (recipient + (", addressTokenStream - " + (param.addressTokenStream + (", lengthOfPayment - " + (String(param.lengthOfPayment) + (", interval - " + (String(param.interval) + (", rate" + (param.rate + (", deposit - " + param.deposit)))))))))));
-                  return fetch("http://localhost:5001/api/v1/channels", Fetch.RequestInit.make(/* Put */3, {
-                                        "Content-Type": "application/json"
-                                      }, Caml_option.some(JSON.stringify(createChannelRequest_encode({
-                                                    partner_address: recipient,
-                                                    token_address: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
-                                                    total_deposit: "2",
-                                                    settle_timeout: "500",
-                                                    reveal_timeout: "50"
-                                                  }))), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(undefined)).then(function (prim) {
-                                return prim.json();
-                              }).then(function (json) {
-                              console.log("THE RESULT", json);
-                              return Promise.resolve({
-                                          success: true,
-                                          error: undefined
-                                        });
-                            });
+                  console.log("recipient - " + (recipient + (", addressTokenStream - " + (addressTokenStream + (", lengthOfPayment - " + (String(lengthOfPayment) + (", interval - " + (String(interval) + (", rate" + (rate + (", deposit - " + deposit)))))))))));
+                  return Async.let_(testMongo(collection, recipient, {
+                                  recipient: recipient,
+                                  addressTokenStream: addressTokenStream,
+                                  lengthOfPayment: lengthOfPayment,
+                                  interval: interval,
+                                  rate: rate,
+                                  deposit: deposit
+                                }), (function (resultMongoDb) {
+                                console.log("result from mongodb:", resultMongoDb);
+                                return fetch("http://localhost:5001/api/v1/channels", Fetch.RequestInit.make(/* Put */3, {
+                                                      "Content-Type": "application/json"
+                                                    }, Caml_option.some(JSON.stringify(createChannelRequest_encode({
+                                                                  partner_address: recipient,
+                                                                  token_address: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
+                                                                  total_deposit: "2",
+                                                                  settle_timeout: "500",
+                                                                  reveal_timeout: "50"
+                                                                }))), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(undefined)).then(function (prim) {
+                                              return prim.json();
+                                            }).then(function (json) {
+                                            console.log("THE RESULT", json);
+                                            return Promise.resolve({
+                                                        success: true,
+                                                        error: undefined
+                                                      });
+                                          });
+                              }));
                 })
             });
 }
