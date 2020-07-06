@@ -18,32 +18,32 @@ type recipientDbData = {
 [@decco.encode]
 type makePaymentRequest = {
   amount: string,
-  identifier: string,
+  identifier: option(string),
 };
 
 let dummyData = [|
   {
-    recipient: "0x61C808D82A3Ac53231750daDc13c777b59310bD9",
+    recipient: "0xc788F08a2aAf539111e2a2D85BD4B324FBE37B15",
     addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
     lengthOfPayment: 86400, // seconds [86400 equals one day.] Must be a multiple of 60
     interval: 60, // this will always be 60 for our demo
     // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
-    rate: "5",
+    rate: "1",
     deposit: "7200",
     numerOfPaymentsMade: 0,
     totalNumberOfPaymentsToMake: 1440,
   },
-  {
-    recipient: "0x68478F088E6967722527afd4f2F9071B0EeFB6B0",
-    addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
-    lengthOfPayment: 86400, // seconds [86400 equals one day.] Must be a multiple of 60
-    interval: 60, // this will always be 60 for our demo
-    // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
-    rate: "10",
-    deposit: "14400",
-    numerOfPaymentsMade: 0,
-    totalNumberOfPaymentsToMake: 1440,
-  },
+  // {
+  //   recipient: "0xc788F08a2aAf539111e2a2D85BD4B324FBE37B15",
+  //   addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
+  //   lengthOfPayment: 86400, // seconds [86400 equals one day.] Must be a multiple of 60
+  //   interval: 60, // this will always be 60 for our demo
+  //   // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
+  //   rate: "1",
+  //   deposit: "14400",
+  //   numerOfPaymentsMade: 0,
+  //   totalNumberOfPaymentsToMake: 1440,
+  // },
 |];
 
 let makePayment = (recipientAddress, amount) => {
@@ -57,7 +57,7 @@ let makePayment = (recipientAddress, amount) => {
       ~method_=Post,
       ~body=
         Fetch.BodyInit.make(
-          {amount, identifier: "optional identifier blah blah"}
+          {amount, identifier: None}
           ->makePaymentRequest_encode
           ->Js.Json.stringify,
         ),

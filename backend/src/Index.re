@@ -116,7 +116,7 @@ module Endpoints = {
                   partner_address: recipient,
                   token_address: "0xb38981469B7235c42DDa836295bE8825Eb4A6389", // "0x4AA554636eBAf8C2d42dE1b20DaB91441b8d2eCF"
                   // token_address: addressTokenStream,
-                  total_deposit: "2",
+                  total_deposit: "20",
                   settle_timeout: "500",
                   reveal_timeout: "50",
                 }

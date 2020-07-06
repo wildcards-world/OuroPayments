@@ -194,7 +194,7 @@ function createStream(collection) {
                                                     }, Caml_option.some(JSON.stringify(createChannelRequest_encode({
                                                                   partner_address: recipient,
                                                                   token_address: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
-                                                                  total_deposit: "2",
+                                                                  total_deposit: "20",
                                                                   settle_timeout: "500",
                                                                   reveal_timeout: "50"
                                                                 }))), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(undefined)).then(function (prim) {

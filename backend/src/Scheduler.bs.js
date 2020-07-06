@@ -55,33 +55,21 @@ function makePaymentRequest_encode(v) {
               ],
               [
                 "identifier",
-                Decco.stringToJson(v.identifier)
+                Decco.optionToJson(Decco.stringToJson, v.identifier)
               ]
             ]);
 }
 
-var dummyData = [
-  {
-    recipient: "0x4AA554636eBAf8C2d42dE1b20DaB91441b8d2eCF",
+var dummyData = [{
+    recipient: "0xc788F08a2aAf539111e2a2D85BD4B324FBE37B15",
     addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
     lengthOfPayment: 86400,
     interval: 60,
-    rate: "5",
+    rate: "1",
     deposit: "7200",
     numerOfPaymentsMade: 0,
     totalNumberOfPaymentsToMake: 1440
-  },
-  {
-    recipient: "0x365D295f7FFc5aae082FD29FD0F6769ba15FDf39",
-    addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
-    lengthOfPayment: 86400,
-    interval: 60,
-    rate: "10",
-    deposit: "14400",
-    numerOfPaymentsMade: 0,
-    totalNumberOfPaymentsToMake: 1440
-  }
-];
+  }];
 
 function makePayment(recipientAddress, amount) {
   var requestString = "http://localhost:5001/api/v1/payments/0xb38981469B7235c42DDa836295bE8825Eb4A6389/" + recipientAddress;
@@ -90,7 +78,7 @@ function makePayment(recipientAddress, amount) {
                         "Content-Type": "application/json"
                       }, Caml_option.some(JSON.stringify(makePaymentRequest_encode({
                                     amount: amount,
-                                    identifier: "optional identifier blah blah"
+                                    identifier: undefined
                                   }))), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(undefined)).then(function (prim) {
                 return prim.json();
               }).then(function (json) {
