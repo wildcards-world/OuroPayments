@@ -22,7 +22,7 @@ type makePaymentRequest = {
 
 let dummyData = [|
   {
-    recipient: "0x4AA554636eBAf8C2d42dE1b20DaB91441b8d2eCF",
+    recipient: "0x61C808D82A3Ac53231750daDc13c777b59310bD9",
     addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
     lengthOfPayment: 86400, // seconds [86400 equals one day.] Must be a multiple of 60
     interval: 60, // this will always be 60 for our demo
@@ -33,7 +33,7 @@ let dummyData = [|
     totalNumberOfPaymentsToMake: 1440,
   },
   {
-    recipient: "0x365D295f7FFc5aae082FD29FD0F6769ba15FDf39",
+    recipient: "0x68478F088E6967722527afd4f2F9071B0EeFB6B0",
     addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
     lengthOfPayment: 86400, // seconds [86400 equals one day.] Must be a multiple of 60
     interval: 60, // this will always be 60 for our demo
@@ -49,6 +49,7 @@ let makePayment = (recipientAddress, amount) => {
   let requestString =
     "http://localhost:5001/api/v1/payments/0xb38981469B7235c42DDa836295bE8825Eb4A6389/"
     ++ recipientAddress;
+  Js.log(amount);
   Fetch.fetchWithInit(
     requestString,
     Fetch.RequestInit.make(

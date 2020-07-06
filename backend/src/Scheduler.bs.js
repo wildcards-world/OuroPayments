@@ -48,6 +48,7 @@ var dummyData = [
 
 function makePayment(recipientAddress, amount) {
   var requestString = "http://localhost:5001/api/v1/payments/0xb38981469B7235c42DDa836295bE8825Eb4A6389/" + recipientAddress;
+  console.log(amount);
   return fetch(requestString, Fetch.RequestInit.make(/* Post */2, {
                         "Content-Type": "application/json"
                       }, Caml_option.some(JSON.stringify(makePaymentRequest_encode({
