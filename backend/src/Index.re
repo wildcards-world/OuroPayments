@@ -6,7 +6,7 @@ open Async;
 // type ethAddress = [@decco.codec (Obj.magic, Obj.magic)] string;
 
 [@decco.decode]
-type body_in = {
+type recipientData = {
   recipient: string,
   addressTokenStream: string,
   lengthOfPayment: int,
@@ -14,6 +14,18 @@ type body_in = {
   // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
   rate: string,
   deposit: string,
+};
+
+type recipientDbData = {
+  recipient: string,
+  addressTokenStream: string,
+  lengthOfPayment: int,
+  interval: int,
+  // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
+  rate: string,
+  deposit: string,
+  noOfPayments: int,
+  totalNoOfPayments: int,
 };
 
 [@decco.encode]
@@ -47,7 +59,7 @@ module Endpoints = {
     Serbet.jsonEndpoint({
       verb: POST,
       path: "/create-stream",
-      body_in_decode,
+      body_in_decode: recipientData_decode,
       body_out_encode,
       handler:
         (
@@ -183,5 +195,8 @@ connectMongo(.)
            Endpoints.createStreamTest(mongoConnection),
          ],
        );
+
      ()->async;
    });
+
+Scheduler.startProcess();
