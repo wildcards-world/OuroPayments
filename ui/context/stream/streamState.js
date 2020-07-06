@@ -97,9 +97,14 @@ const StreamState = (props) => {
 
   // Delete STREAM
   const deleteStream = async (id) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
     try {
       setLoading();
-      await axios.delete(backendUrl + `/api/streams/delete/${id}`);
+      await axios.post(backendUrl + `/delete-stream`, id, config);
       dispatch({
         type: DELETE_STREAM,
         payload: id,
