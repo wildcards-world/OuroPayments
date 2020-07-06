@@ -192,15 +192,15 @@ function Table({ columns, data }) {
   );
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [activeCell, setActiveCell] = React.useState(null);
+  const [activeId, setActiveId] = React.useState(null);
 
   function closeModal() {
     setIsOpen(false);
-    setActiveCell(null);
+    setActiveId(null);
   }
 
   function openModal(cell) {
-    setActiveCell(cell);
+    setActiveId(cell);
     setIsOpen(true);
   }
 
@@ -276,16 +276,16 @@ function Table({ columns, data }) {
       </table>
       <div className="pagination">
         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {"<<"}
+          {"◀◀"}
         </button>{" "}
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {"<"}
+          {"◀"}
         </button>{" "}
         <button onClick={() => nextPage()} disabled={!canNextPage}>
-          {">"}
+          {"▶"}
         </button>{" "}
         <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {">>"}
+          {"▶▶"}
         </button>{" "}
         <span>
           Page{" "}
@@ -366,7 +366,7 @@ function Table({ columns, data }) {
             </button>
             <button
               onClick={() => {
-                deleteStream(id);
+                deleteStream(activeId);
                 closeModal();
               }}
               style={{ padding: "1rem", width: "30%" }}

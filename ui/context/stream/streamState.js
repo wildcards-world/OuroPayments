@@ -78,7 +78,7 @@ const StreamState = (props) => {
       // setLoading();
       const res = await axios.post(
         backendUrl + "/create-stream-test",
-        stream,
+        { stream },
         config
       );
 
@@ -104,10 +104,10 @@ const StreamState = (props) => {
     };
     try {
       setLoading();
-      await axios.post(backendUrl + `/delete-stream`, id, config);
+      await axios.post(backendUrl + `/delete-stream`, { id }, config);
       dispatch({
         type: DELETE_STREAM,
-        payload: id,
+        payload: { id },
       });
     } catch (err) {
       dispatch({
