@@ -6,6 +6,8 @@ https://ouropayments.com (Demo on Goerli using OuroDAI tokens)
 
 [Brainstorming](https://docs.google.com/presentation/d/1d2tp1rsIX18wcOnb2jw50Y1nxk5WkAGiVk_tnERi0vQ/edit?usp=sharing)
 
+_Please note in order to submit a stream to an address it requires that you have a node running_
+
 # What
 
 Ouro Payments is a privacy preserving payment stream service built on Raiden Network developed during the Protect Privacy hackathon fulfilling the bounty Use Raiden for fast privacy preserving payments.
