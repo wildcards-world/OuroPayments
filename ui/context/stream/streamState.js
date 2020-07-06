@@ -76,11 +76,16 @@ const StreamState = (props) => {
 
     try {
       // setLoading();
-      const res = await axios.post(
-        backendUrl + "/create-stream-test",
-        { stream },
-        config
-      );
+      let endpoint = backendUrl + "/create-stream-test";
+      console.log(endpoint);
+      const res = await axios
+        .post(endpoint, stream, config)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
 
       dispatch({
         type: ADD_STREAM,
