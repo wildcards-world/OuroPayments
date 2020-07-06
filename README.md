@@ -122,6 +122,7 @@ yarn desktop
 - Overview with steps UI
 - Create stream ui
 - Create channel steps
+- Form validation
 
 ## Further Work
 

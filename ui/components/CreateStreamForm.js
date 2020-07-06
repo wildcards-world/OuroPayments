@@ -3,18 +3,23 @@ import Link from "next/link";
 import WAValidator from "wallet-address-validator";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+import axios from "axios";
 
 const CreateStreamForm = () => {
   const [address, setAddress] = useState("");
-  const [token, setToken] = useState("");
-  const [streamLength, setStreamLength] = useState("");
-  const [streamInterval, setStreamInterval] = useState("");
+  const [token, setToken] = useState(
+    "0xef728932707ae91844cff5176ab544a0b7500331"
+  );
+  const [streamLength, setStreamLength] = useState(14);
+  const [streamInterval, setStreamInterval] = useState(60);
   const [amount, setAmount] = useState(10);
 
   const [status, setStatus] = useState({
     message: "",
     color: "",
   });
+
+  const [submittingLoading, setSubmittingLoading] = useState(null);
 
   const clearMessage = () => setStatus({ message: "", color: "" });
 
@@ -63,11 +68,40 @@ const CreateStreamForm = () => {
       }
       clearMessage();
     }
+    setSubmittingLoading(true);
+    // Request to backend with data
+    axios({
+      method: "post",
+      url: "https://backend.cccom/endpointurl",
+      data: {
+        address,
+        token,
+        streamLength,
+        streamInterval,
+        amount,
+      },
+    })
+      .then(function (response) {
+        console.log(response.data);
+        console.log(response.status);
+        console.log(response.statusText);
+        console.log(response.headers);
+        console.log(response.config);
+        setSubmittingLoading(false);
+      })
+      .catch(function (error) {
+        console.log(error.toJSON());
+        setSubmittingLoading(false);
+        setStatus({
+          message: `It seem's we are having issues connecting to the backend: ${error.toString()}`,
+          color: "red",
+        });
+      });
   };
 
   return (
     <React.Fragment>
-      {true && (
+      {submittingLoading && (
         <div
           style={{
             position: "absolute",
@@ -118,21 +152,56 @@ const CreateStreamForm = () => {
           }}
         />
         <label for="token">Token</label>
-        <select id="token">
-          <option>OuroDAI</option>
+        <select
+          id="token"
+          onChange={(event) => {
+            setToken(event.target.value);
+          }}
+        >
+          <option value={"0xef728932707ae91844cff5176ab544a0b7500331"}>
+            OuroDAI
+          </option>
         </select>
         <label for="stream-length">Stream Length</label>
-        <select id="stream-length">
-          <option val="1">1 day</option>
-          <option val="14">14 days</option>
-          <option val="30">30 days</option>
-          <option val="-1">Continuous</option>
+        <select
+          id="stream-length"
+          onChange={(event) => {
+            setStreamLength(event.target.value);
+          }}
+        >
+          {[
+            { value: 1, text: "1 day" },
+            { value: 14, text: "14 days" },
+            { value: 30, text: "30 days" },
+            { value: -1, text: "Continuous" },
+          ].map((lengthOption) => (
+            <option
+              value={lengthOption.value}
+              selected={streamLength == lengthOption.value}
+            >
+              {lengthOption.text}
+            </option>
+          ))}
         </select>
         <label for="stream-interval">Payment interval</label>
-        <select id="stream-interval">
-          <option val="1">Each Minute</option>
-          <option val="60">Hourly</option>
-          <option val="1440">Daily</option>
+        <select
+          id="stream-interval"
+          onChange={(event) => {
+            setStreamInterval(event.target.value);
+          }}
+        >
+          {[
+            { value: 1, text: "Every Minute" },
+            { value: 60, text: "Hourly" },
+            { value: 1440, text: "Daily" },
+          ].map((intervalOption) => (
+            <option
+              value={intervalOption.value}
+              selected={streamInterval == intervalOption.value}
+            >
+              {intervalOption.text}
+            </option>
+          ))}
         </select>
         <input
           placeholder="Amount"
