@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import WAValidator from "wallet-address-validator";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 const CreateStreamForm = () => {
   const [address, setAddress] = useState("");
@@ -64,6 +67,33 @@ const CreateStreamForm = () => {
 
   return (
     <React.Fragment>
+      {true && (
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%,-50%)",
+            padding: "1rem",
+            backgroundColor: "#454545cc",
+            border: "1px solid black",
+          }}
+        >
+          <Loader
+            type="BallTriangle"
+            color="#efefef"
+            height={100}
+            width={100}
+            visible={true}
+            style={{ textAlign: "center" }}
+          />
+          <p>
+            {" "}
+            This may take a few minutes
+            <br /> as we are interacting with <br /> the ethereum network
+          </p>
+        </div>
+      )}
       <div style={{ margin: "2rem 0" }} className="stream-form">
         <h2>Create Stream </h2>
         <label for="address">Recipient Address</label>
@@ -75,6 +105,16 @@ const CreateStreamForm = () => {
           onChange={(event) => {
             setAddress(event.target.value);
             clearMessage();
+          }}
+          onBlur={(event) => {
+            console.log(event.target.value);
+            console.log(WAValidator.validate(event.target.value, "ETH"));
+            if (!WAValidator.validate(event.target.value, "ETH")) {
+              setStatus({
+                message: "Please use a valid eth address address",
+                color: "orange",
+              });
+            }
           }}
         />
         <label for="token">Token</label>
@@ -102,24 +142,50 @@ const CreateStreamForm = () => {
             setAmount(event.target.value);
             clearMessage();
           }}
+          onBlur={(event) => {
+            if (event.target.value > 1000) {
+              setStatus({
+                message:
+                  "Please set the amount to 1000 or less to ensure sufficient test token in the node",
+                color: "orange",
+              });
+            }
+          }}
         />
         <div style={{ margin: "auto" }}>
-          <Link href="/dapp/create-stream">
-            <div className="button" style={{ margin: "auto" }}>
-              <div
-                style={{
-                  margin: "auto",
-                  padding: "10%",
-                  color: "white",
-                  textAlign: "center",
-                  transform: "translateY(5px)",
-                }}
-              >
-                CREATE STREAM
-              </div>
+          <div
+            className="button"
+            style={{ margin: "auto" }}
+            onClick={() => submitStream()}
+          >
+            <div
+              style={{
+                margin: "auto",
+                padding: "10%",
+                color: "white",
+                textAlign: "center",
+                transform: "translateY(7px)",
+              }}
+            >
+              CREATE STREAM
             </div>
-          </Link>
+          </div>
         </div>
+        {!!status.message && (
+          <div
+            style={{
+              color: status.color,
+              border: "1px solid " + status.color,
+              padding: "1rem",
+              marginTop: "1rem",
+              width: "100%",
+              fontWeight: "bold",
+              backgroundColor: "#efefefdd",
+            }}
+          >
+            {status.message}
+          </div>
+        )}
         <style jsx>{`
           p {
             font-weight: lighter;

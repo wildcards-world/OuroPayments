@@ -109,7 +109,7 @@ function Layout({ Component, pageProps }) {
         .step-container {
           color: white;
           background-color: #33333388;
-          padding: 3rem;
+          padding: 1rem 3rem;
           width: 440px;
           border: 1px solid #333333cc;
         }
