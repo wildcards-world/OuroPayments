@@ -1,2 +1,3 @@
 backend/lib
 .merlin
+.bsb.lock

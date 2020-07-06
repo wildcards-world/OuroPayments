@@ -16,18 +16,6 @@ type recipientData = {
   deposit: string,
 };
 
-type recipientDbData = {
-  recipient: string,
-  addressTokenStream: string,
-  lengthOfPayment: int,
-  interval: int,
-  // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
-  rate: string,
-  deposit: string,
-  noOfPayments: int,
-  totalNoOfPayments: int,
-};
-
 [@decco.encode]
 type recipientDbData = {
   recipient: string,
@@ -163,7 +151,7 @@ module Endpoints = {
     Serbet.jsonEndpoint({
       verb: POST,
       path: "/create-stream-test",
-      body_in_decode,
+      body_in_decode: recipientData_decode,
       body_out_encode: mongoResult_encode,
       handler:
         (

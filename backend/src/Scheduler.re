@@ -1,7 +1,6 @@
 open BsCron;
 open Globals;
 open Serbet.Endpoint;
-// open Map;
 
 type recipientDbData = {
   recipient: string,
@@ -21,64 +20,64 @@ type makePaymentRequest = {
   identifier: string,
 };
 
-// let dummyData = [|
-//   {
-//     recipient: "0x4AA554636eBAf8C2d42dE1b20DaB91441b8d2eCF",
-//     addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
-//     lengthOfPayment: 86400, // seconds [86400 equals one day.] Must be a multiple of 60
-//     interval: 60, // this will always be 60 for our demo
-//     // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
-//     rate: "5",
-//     deposit: "7200",
-//     numerOfPaymentsMade: 0,
-//     totalNumberOfPaymentsToMake: 1440,
-//   },
-//   {
-//     recipient: "0x365D295f7FFc5aae082FD29FD0F6769ba15FDf39",
-//     addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
-//     lengthOfPayment: 86400, // seconds [86400 equals one day.] Must be a multiple of 60
-//     interval: 60, // this will always be 60 for our demo
-//     // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
-//     rate: "10",
-//     deposit: "14400",
-//     numerOfPaymentsMade: 0,
-//     totalNumberOfPaymentsToMake: 1440,
-//   },
-// |];
+let dummyData = [|
+  {
+    recipient: "0x4AA554636eBAf8C2d42dE1b20DaB91441b8d2eCF",
+    addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
+    lengthOfPayment: 86400, // seconds [86400 equals one day.] Must be a multiple of 60
+    interval: 60, // this will always be 60 for our demo
+    // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
+    rate: "5",
+    deposit: "7200",
+    numerOfPaymentsMade: 0,
+    totalNumberOfPaymentsToMake: 1440,
+  },
+  {
+    recipient: "0x365D295f7FFc5aae082FD29FD0F6769ba15FDf39",
+    addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
+    lengthOfPayment: 86400, // seconds [86400 equals one day.] Must be a multiple of 60
+    interval: 60, // this will always be 60 for our demo
+    // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
+    rate: "10",
+    deposit: "14400",
+    numerOfPaymentsMade: 0,
+    totalNumberOfPaymentsToMake: 1440,
+  },
+|];
 
-// let makePayment = (recipientAddress, amount) => {
-//   let requestString =
-//     "http://localhost:5001/api/v1/payments/0xb38981469B7235c42DDa836295bE8825Eb4A6389/"
-//     ++ recipientAddress;
-//   Fetch.fetchWithInit(
-//     requestString,
-//     Fetch.RequestInit.make(
-//       ~method_=Post,
-//       ~body=
-//         Fetch.BodyInit.make(
-//           {amount, identifier: "optional identifier blah blah"}
-//           ->makePaymentRequest_encode
-//           ->Js.Json.stringify,
-//         ),
-//       ~headers=Fetch.HeadersInit.make({"Content-Type": "application/json"}),
-//       (),
-//     ),
-//   )
-//   |> Js.Promise.then_(Fetch.Response.json)
-//   |> Js.Promise.then_(json => {
-//        Js.log2("THE RESULT:", json) |> Js.Promise.resolve
-//      });
-// };
+let makePayment = (recipientAddress, amount) => {
+  let requestString =
+    "http://localhost:5001/api/v1/payments/0xb38981469B7235c42DDa836295bE8825Eb4A6389/"
+    ++ recipientAddress;
+  Fetch.fetchWithInit(
+    requestString,
+    Fetch.RequestInit.make(
+      ~method_=Post,
+      ~body=
+        Fetch.BodyInit.make(
+          {amount, identifier: "optional identifier blah blah"}
+          ->makePaymentRequest_encode
+          ->Js.Json.stringify,
+        ),
+      ~headers=Fetch.HeadersInit.make({"Content-Type": "application/json"}),
+      (),
+    ),
+  )
+  |> Js.Promise.then_(Fetch.Response.json)
+  |> Js.Promise.then_(json => {
+       Js.log2("THE RESULT:", json) |> Js.Promise.resolve
+     });
+};
 
-// let paymentHandler = (item: recipientDbData) =>
-//   if (item.numerOfPaymentsMade == item.totalNumberOfPaymentsToMake) {
-//     {};
-//   } else {
-//     let _ = makePayment(item.recipient, item.rate);
-//     // If it was a success, item.numerOfPaymentsMade ++;
-//     // Otherwise print out little shit error
-//     {};
-//   };
+let paymentHandler = (item: recipientDbData) =>
+  if (item.numerOfPaymentsMade == item.totalNumberOfPaymentsToMake) {
+    {};
+  } else {
+    let _ = makePayment(item.recipient, item.rate);
+    // If it was a success, item.numerOfPaymentsMade ++;
+    // Otherwise print out little shit error
+    {};
+  };
 
 let job =
   CronJob.make(
@@ -86,9 +85,7 @@ let job =
     _ => {
       Js.log("Printing every minute");
       // Grab mongoData instead of dummy data later...
-      // Array.map([|"a", "b"|], item => {item->Js.log});
-      // Belt.Array.map([|1, 2|], x => x + 1);
-      // Array.map(dummyData, item => {item->paymentHandler});
+      let _ = Array.map(dummyData, item => {item->paymentHandler});
       ();
     },
     (),
