@@ -2,6 +2,7 @@ open BsCron;
 open Globals;
 open Serbet.Endpoint;
 
+[@decco.encode]
 type recipientDbData = {
   recipient: string,
   addressTokenStream: string,

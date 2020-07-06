@@ -109,43 +109,6 @@ function recipientData_decode(v) {
         };
 }
 
-function recipientDbData_encode(v) {
-  return Js_dict.fromArray([
-              [
-                "recipient",
-                Decco.stringToJson(v.recipient)
-              ],
-              [
-                "addressTokenStream",
-                Decco.stringToJson(v.addressTokenStream)
-              ],
-              [
-                "lengthOfPayment",
-                Decco.intToJson(v.lengthOfPayment)
-              ],
-              [
-                "interval",
-                Decco.intToJson(v.interval)
-              ],
-              [
-                "rate",
-                Decco.stringToJson(v.rate)
-              ],
-              [
-                "deposit",
-                Decco.stringToJson(v.deposit)
-              ],
-              [
-                "numerOfPaymentsMade",
-                Decco.intToJson(v.numerOfPaymentsMade)
-              ],
-              [
-                "totalNumberOfPaymentsToMake",
-                Decco.intToJson(v.totalNumberOfPaymentsToMake)
-              ]
-            ]);
-}
-
 function mongoResult_encode(v) {
   return Js_dict.fromArray([[
                 "success",
@@ -156,7 +119,7 @@ function mongoResult_encode(v) {
 var connectMongo = MongoJs.MongoConnect;
 
 function recipientDbArray_encode(v) {
-  return Decco.arrayToJson(recipientDbData_encode, v);
+  return Decco.arrayToJson(Scheduler.recipientDbData_encode, v);
 }
 
 var getStreamss = MongoJs.getStreams;
@@ -317,7 +280,6 @@ connectMongo().then(function (mongoConnection) {
 Scheduler.startProcess(undefined);
 
 exports.recipientData_decode = recipientData_decode;
-exports.recipientDbData_encode = recipientDbData_encode;
 exports.mongoResult_encode = mongoResult_encode;
 exports.connectMongo = connectMongo;
 exports.recipientDbArray_encode = recipientDbArray_encode;
