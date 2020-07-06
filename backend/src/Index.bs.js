@@ -7,6 +7,7 @@ var Fetch = require("bs-fetch/src/Fetch.js");
 var Serbet = require("serbet/src/Serbet.bs.js");
 var Js_dict = require("bs-platform/lib/js/js_dict.js");
 var Js_json = require("bs-platform/lib/js/js_json.js");
+var Scheduler = require("./Scheduler.bs.js");
 var MongoJs = require("./Mongo.js");
 var Belt_Option = require("bs-platform/lib/js/belt_Option.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
@@ -312,6 +313,8 @@ connectMongo().then(function (mongoConnection) {
           });
       return Async.async(undefined);
     });
+
+Scheduler.startProcess(undefined);
 
 exports.body_in_decode = body_in_decode;
 exports.recipientDbData_encode = recipientDbData_encode;

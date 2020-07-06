@@ -19,6 +19,7 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "bs-cron": "^1.1.0",
     "bs-fetch": "^0.6.1",
     "bs-let": "^0.1.16",
     "cors": "^2.8.5",
