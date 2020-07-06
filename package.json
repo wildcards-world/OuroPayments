@@ -12,6 +12,9 @@
     "backend-install": "cd backend && yarn",
     "backend": "cd backend && yarn start",
     "desktop-install": "cd desktopApp && yarn",
-    "desktop": "cd desktop && yarn start"
+    "desktop": "cd desktopApp && yarn start"
+  },
+  "dependencies": {
+    "axios": "^0.19.2"
   }
 }

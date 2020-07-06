@@ -12,12 +12,12 @@ const Overview = () => {
         <h4>⚡&emsp;Step 1 </h4>
         <p>&emsp;&emsp;Create a channel</p>
         <h4>⚡&emsp;Step 2 </h4>
-        <p>&emsp;&emsp;Initiate payment stream</p>
+        <p>&emsp;&emsp;Await contract interactions</p>
         <h4>⚡&emsp;Step 3 </h4>
         <p>&emsp;&emsp;Track stream</p>
       </div>
       <div style={{ margin: "auto" }}>
-        <Link href="/dapp/create-channel">
+        <Link href="/dapp/create-stream">
           <div className="button" style={{ margin: "auto" }}>
             <div
               style={{
@@ -25,7 +25,7 @@ const Overview = () => {
                 padding: "10%",
                 color: "white",
                 textAlign: "center",
-                transform: "translateY(5px)",
+                transform: "translateY(7px)",
               }}
             >
               GET STARTED

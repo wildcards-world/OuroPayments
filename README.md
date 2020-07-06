@@ -90,27 +90,12 @@ yarn desktop
 
 #### Dapp
 
-- Create stream ui
-- Create channel steps
 - Optimize for mobile
 - Add state management (redux)
 - Progress bar
 
-#### Mobile App
-
-- Setup boilerplate
-- Design UI
-- Implement UI
-- Read data from backend
-
-## Non essential want-to-do's
-
-- Static Explainer Site  
-  -About Section Copy
-
 #### Dapp
 
-- Deploy new token
 - Improve stream length input ux
 
 ## Complete
@@ -134,8 +119,17 @@ yarn desktop
 
 - Run a raiden node (goerli)
 - Overview with steps UI
+- Create stream ui
+- Create channel steps
+- Form validation
+- Deploy new token
+- Streams dashboard
+- State management context api
 
 ## Further Work
+
+- Developing the application into a mobile app, using the raiden lite client in react native.
+- Integrate the raiden wizard steps for users to set up their raiden node
 
 ## Further Considerations
 
@@ -153,10 +147,10 @@ yarn desktop
 - [Deploy Custom Token ERC20 on Goerli](https://docs.raiden.network/using-raiden-on-testnet/use-custom-token)
 - [Raiden API docs](https://docs.raiden.network/raiden-api-1/)
 - [Raiden Resources, community curated](https://github.com/raiden-network/awesome-raiden)
-- [Goerli OuroDAI test token](https://goerli.etherscan.io/address/0xb38981469b7235c42dda836295be8825eb4a6389)
+- [Goerli Ouro Demo test token](https://goerli.etherscan.io/address/0xef728932707ae91844cff5176ab544a0b7500331)
 - [NextJS & Electron](https://medium.com/@ofarukcaki/using-next-js-with-electron-f949b175da88)
 - [Api Notes](./api-notes.md)
 
 # Disclaimer
 
-I have not received any permissions to use the logo, this project in its current form remains a proof of concept and is under active development.
+We have not received any permissions to use the logo, this project in its current form remains a proof of concept and is under active development.
