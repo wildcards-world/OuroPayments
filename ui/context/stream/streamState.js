@@ -52,6 +52,8 @@ const StreamState = (props) => {
       // setLoading();
       const res = await axios.get(backendUrl + "/get-streams");
 
+      console.log(res);
+
       dispatch({
         type: GET_STREAMS,
         payload: res.data,

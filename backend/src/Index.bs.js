@@ -15,7 +15,7 @@ var CustomSerbet = require("./lib/CustomSerbet.bs.js");
 
 ((require('isomorphic-fetch')));
 
-function body_in_decode(v) {
+function recipientData_decode(v) {
   var dict = Js_json.classify(v);
   if (typeof dict === "number") {
     return Decco.error(undefined, "Not an object", v);
@@ -205,7 +205,7 @@ function createStream(collection) {
   return Serbet.jsonEndpoint(undefined, {
               path: "/create-stream",
               verb: /* POST */1,
-              body_in_decode: body_in_decode,
+              body_in_decode: recipientData_decode,
               body_out_encode: body_out_encode,
               handler: (function (param, _req) {
                   var deposit = param.deposit;
@@ -252,7 +252,7 @@ function createStreamTest(collection) {
   return Serbet.jsonEndpoint(undefined, {
               path: "/create-stream-test",
               verb: /* POST */1,
-              body_in_decode: body_in_decode,
+              body_in_decode: recipientData_decode,
               body_out_encode: mongoResult_encode,
               handler: (function (param, _req) {
                   var deposit = param.deposit;
@@ -282,8 +282,6 @@ function getStreamsEndpoint(collection) {
               verb: /* GET */0,
               handler: (function (_req) {
                   return Async.let_(getStreamss(collection), (function (result) {
-                                console.log("result");
-                                console.log(result);
                                 return Async.async({
                                             TAG: /* OkJson */4,
                                             _0: result
@@ -318,7 +316,7 @@ connectMongo().then(function (mongoConnection) {
 
 Scheduler.startProcess(undefined);
 
-exports.body_in_decode = body_in_decode;
+exports.recipientData_decode = recipientData_decode;
 exports.recipientDbData_encode = recipientDbData_encode;
 exports.mongoResult_encode = mongoResult_encode;
 exports.connectMongo = connectMongo;
