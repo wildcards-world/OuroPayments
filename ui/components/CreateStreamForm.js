@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Link from "next/link";
 import WAValidator from "wallet-address-validator";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import axios from "axios";
+import StreamContext from "../context/stream/streamContext";
 
 const CreateStreamForm = () => {
+  const streamContext = useContext(StreamContext);
+
+  const { addStream } = streamContext;
   const [address, setAddress] = useState("");
   const [token, setToken] = useState(
     "0xef728932707ae91844cff5176ab544a0b7500331"
@@ -70,33 +74,40 @@ const CreateStreamForm = () => {
     }
     setSubmittingLoading(true);
     // Request to backend with data
-    axios({
-      method: "post",
-      url: "https://backend.cccom/endpointurl",
-      data: {
-        address,
-        token,
-        streamLength,
-        streamInterval,
-        amount,
-      },
-    })
-      .then(function (response) {
-        console.log(response.data);
-        console.log(response.status);
-        console.log(response.statusText);
-        console.log(response.headers);
-        console.log(response.config);
-        setSubmittingLoading(false);
-      })
-      .catch(function (error) {
-        console.log(error.toJSON());
-        setSubmittingLoading(false);
-        setStatus({
-          message: `It seem's we are having issues connecting to the backend: ${error.toString()}`,
-          color: "red",
-        });
-      });
+
+    const dataPack = {
+      recipientAddress: address,
+      addressTokenStream: token,
+      lengthOfPayment: streamLength,
+      interval: streamInterval,
+      deposit: amount,
+    };
+
+    console.log(dataPack);
+
+    addStream(dataPack);
+
+    // axios({
+    //   method: "post",
+    //   url: "http://localhost:5000/create-stream-test",
+    //   data: dataPack,
+    // })
+    //   .then(function (response) {
+    //     console.log(response.data);
+    //     console.log(response.status);
+    //     console.log(response.statusText);
+    //     console.log(response.headers);
+    //     console.log(response.config);
+    //     setSubmittingLoading(false);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error.toJSON());
+    //     setSubmittingLoading(false);
+    //     setStatus({
+    //       message: `It seem's we are having issues connecting to the backend: ${error.toString()}`,
+    //       color: "red",
+    //     });
+    //   });
   };
 
   return (
