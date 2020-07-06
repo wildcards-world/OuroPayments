@@ -5,17 +5,29 @@ open Async;
 // [@decco]
 // type ethAddress = [@decco.codec (Obj.magic, Obj.magic)] string;
 
-module CreateStream = {
-  [@decco.decode]
-  type body_in = {
-    recipient: string,
-    addressTokenStream: string,
-    lengthOfPayment: int,
-    interval: int,
-    // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
-    rate: string,
-    deposit: string,
-  };
+[@decco.decode]
+type body_in = {
+  recipient: string,
+  addressTokenStream: string,
+  lengthOfPayment: int,
+  interval: int,
+  // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
+  rate: string,
+  deposit: string,
+};
+
+[@decco.encode]
+type mongoResult = {success: bool};
+type collection;
+
+[@bs.module "./Mongo.js"]
+external connectMongo: (. unit) => Js.Promise.t(collection) = "MongoConnect";
+[@bs.module "./Mongo.js"]
+external testMongo:
+  (. collection, string, body_in) => Js.Promise.t(mongoResult) =
+  "addStream";
+
+module Endpoints = {
   [@decco.encode]
   type body_out = {
     success: bool,
@@ -31,7 +43,7 @@ module CreateStream = {
     reveal_timeout: string,
   };
 
-  let endpoint =
+  let createStream = _mongoConnection =>
     Serbet.jsonEndpoint({
       verb: POST,
       path: "/create-stream",
@@ -63,6 +75,7 @@ module CreateStream = {
           ++ ", deposit - "
           ++ deposit,
         );
+
         Fetch.fetchWithInit(
           "http://localhost:5001/api/v1/channels",
           Fetch.RequestInit.make(
@@ -72,6 +85,7 @@ module CreateStream = {
                 {
                   partner_address: recipient,
                   token_address: "0xb38981469B7235c42DDa836295bE8825Eb4A6389", // "0x4AA554636eBAf8C2d42dE1b20DaB91441b8d2eCF"
+                  // token_address: addressTokenStream,
                   total_deposit: "2",
                   settle_timeout: "500",
                   reveal_timeout: "50",
@@ -91,6 +105,68 @@ module CreateStream = {
            });
       },
     });
+
+  let createStreamTest = collection =>
+    Serbet.jsonEndpoint({
+      verb: POST,
+      path: "/create-stream-test",
+      body_in_decode,
+      body_out_encode: mongoResult_encode,
+      handler:
+        (
+          {
+            recipient,
+            addressTokenStream,
+            lengthOfPayment,
+            interval,
+            rate,
+            deposit,
+          },
+          _req,
+        ) => {
+        Js.log(
+          "recipient - "
+          ++ recipient
+          ++ ", addressTokenStream - "
+          ++ addressTokenStream
+          ++ ", lengthOfPayment - "
+          ++ lengthOfPayment->string_of_int
+          ++ ", interval - "
+          ++ interval->string_of_int
+          ++ ", rate"
+          ++ rate
+          ++ ", deposit - "
+          ++ deposit,
+        );
+
+        let%Async result =
+          testMongo(.
+            collection,
+            recipient,
+            {
+              recipient,
+              addressTokenStream,
+              lengthOfPayment,
+              interval,
+              rate,
+              deposit,
+            },
+          );
+        result->async;
+      },
+    });
 };
 
-let app = Serbet.application(~port=5000, [CreateStream.endpoint]);
+connectMongo(.)
+|> Js.Promise.then_(mongoConnection => {
+     Js.log2("connected", mongoConnection);
+     let app =
+       Serbet.application(
+         ~port=5000,
+         [
+           Endpoints.createStream(mongoConnection),
+           Endpoints.createStreamTest(mongoConnection),
+         ],
+       );
+     ()->async;
+   });
