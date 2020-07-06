@@ -10,6 +10,43 @@ var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var CamlinternalOO = require("bs-platform/lib/js/camlinternalOO.js");
 
+function recipientDbData_encode(v) {
+  return Js_dict.fromArray([
+              [
+                "recipient",
+                Decco.stringToJson(v.recipient)
+              ],
+              [
+                "addressTokenStream",
+                Decco.stringToJson(v.addressTokenStream)
+              ],
+              [
+                "lengthOfPayment",
+                Decco.intToJson(v.lengthOfPayment)
+              ],
+              [
+                "interval",
+                Decco.intToJson(v.interval)
+              ],
+              [
+                "rate",
+                Decco.stringToJson(v.rate)
+              ],
+              [
+                "deposit",
+                Decco.stringToJson(v.deposit)
+              ],
+              [
+                "numerOfPaymentsMade",
+                Decco.intToJson(v.numerOfPaymentsMade)
+              ],
+              [
+                "totalNumberOfPaymentsToMake",
+                Decco.intToJson(v.totalNumberOfPaymentsToMake)
+              ]
+            ]);
+}
+
 function makePaymentRequest_encode(v) {
   return Js_dict.fromArray([
               [
@@ -116,6 +153,7 @@ function startProcess(param) {
   
 }
 
+exports.recipientDbData_encode = recipientDbData_encode;
 exports.makePaymentRequest_encode = makePaymentRequest_encode;
 exports.dummyData = dummyData;
 exports.makePayment = makePayment;
