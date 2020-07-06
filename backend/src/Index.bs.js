@@ -7,6 +7,7 @@ var Fetch = require("bs-fetch/src/Fetch.js");
 var Serbet = require("serbet/src/Serbet.bs.js");
 var Js_dict = require("bs-platform/lib/js/js_dict.js");
 var Js_json = require("bs-platform/lib/js/js_json.js");
+var Scheduler = require("./Scheduler.bs.js");
 var MongoJs = require("./Mongo.js");
 var Belt_Option = require("bs-platform/lib/js/belt_Option.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
@@ -14,7 +15,7 @@ var CustomSerbet = require("./lib/CustomSerbet.bs.js");
 
 ((require('isomorphic-fetch')));
 
-function body_in_decode(v) {
+function recipientData_decode(v) {
   var dict = Js_json.classify(v);
   if (typeof dict === "number") {
     return Decco.error(undefined, "Not an object", v);
@@ -108,43 +109,6 @@ function body_in_decode(v) {
         };
 }
 
-function recipientDbData_encode(v) {
-  return Js_dict.fromArray([
-              [
-                "recipient",
-                Decco.stringToJson(v.recipient)
-              ],
-              [
-                "addressTokenStream",
-                Decco.stringToJson(v.addressTokenStream)
-              ],
-              [
-                "lengthOfPayment",
-                Decco.intToJson(v.lengthOfPayment)
-              ],
-              [
-                "interval",
-                Decco.intToJson(v.interval)
-              ],
-              [
-                "rate",
-                Decco.stringToJson(v.rate)
-              ],
-              [
-                "deposit",
-                Decco.stringToJson(v.deposit)
-              ],
-              [
-                "numerOfPaymentsMade",
-                Decco.intToJson(v.numerOfPaymentsMade)
-              ],
-              [
-                "totalNumberOfPaymentsToMake",
-                Decco.intToJson(v.totalNumberOfPaymentsToMake)
-              ]
-            ]);
-}
-
 function mongoResult_encode(v) {
   return Js_dict.fromArray([[
                 "success",
@@ -155,7 +119,7 @@ function mongoResult_encode(v) {
 var connectMongo = MongoJs.MongoConnect;
 
 function recipientDbArray_encode(v) {
-  return Decco.arrayToJson(recipientDbData_encode, v);
+  return Decco.arrayToJson(Scheduler.recipientDbData_encode, v);
 }
 
 var getStreamss = MongoJs.getStreams;
@@ -206,7 +170,7 @@ function createStream(collection) {
   return Serbet.jsonEndpoint(undefined, {
               path: "/create-stream",
               verb: /* POST */1,
-              body_in_decode: body_in_decode,
+              body_in_decode: recipientData_decode,
               body_out_encode: body_out_encode,
               handler: (function (param, _req) {
                   var deposit = param.deposit;
@@ -253,7 +217,7 @@ function createStreamTest(collection) {
   return Serbet.jsonEndpoint(undefined, {
               path: "/create-stream-test",
               verb: /* POST */1,
-              body_in_decode: body_in_decode,
+              body_in_decode: recipientData_decode,
               body_out_encode: mongoResult_encode,
               handler: (function (param, _req) {
                   var deposit = param.deposit;
@@ -360,8 +324,9 @@ connectMongo().then(function (mongoConnection) {
       return Async.async(undefined);
     });
 
-exports.body_in_decode = body_in_decode;
-exports.recipientDbData_encode = recipientDbData_encode;
+Scheduler.startProcess(undefined);
+
+exports.recipientData_decode = recipientData_decode;
 exports.mongoResult_encode = mongoResult_encode;
 exports.connectMongo = connectMongo;
 exports.recipientDbArray_encode = recipientDbArray_encode;

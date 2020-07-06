@@ -42,3 +42,4 @@ raiden-node/raiden*
 #bucklescript:
 backend/lib
 .merlin
+.bsb.lock

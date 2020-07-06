@@ -10,7 +10,7 @@
     "in-source": true
   },
   "suffix": ".bs.js",
-  "bs-dependencies": ["bs-express", "decco", "serbet", "bs-fetch"],
+  "bs-dependencies": ["bs-express", "decco", "serbet", "bs-fetch", "bs-cron"],
   "ppx-flags": ["decco/ppx", "bs-let/ppx"],
   "warnings": {
     "error": "+101"
