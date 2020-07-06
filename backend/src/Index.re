@@ -1,7 +1,4 @@
 [%raw "require('isomorphic-fetch')"];
-// [%raw "
-//     var cors = require('cors')
-//    "];
 
 open Serbet.Endpoint;
 open Async;
@@ -52,7 +49,7 @@ module Endpoints = {
 
   let createStream = collection =>
     Serbet.jsonEndpoint(
-      ~middleware=[|cors(.)|],
+      ~middleware=[||],
       {
         verb: POST,
         path: "/create-stream",
@@ -133,7 +130,7 @@ module Endpoints = {
 
   let createStreamTest = collection =>
     Serbet.jsonEndpoint(
-      ~middleware=[|cors(.)|],
+      ~middleware=[||],
       {
         verb: POST,
         path: "/create-stream-test",
@@ -185,24 +182,16 @@ module Endpoints = {
     );
 };
 
-// let setupCorsHack = [%raw
-//   "app => {
-//     var cors = require('cors');
-//     app.use(cors());
-//   }"
-// ];
-
 connectMongo(.)
 |> Js.Promise.then_(mongoConnection => {
      Js.log2("connected", mongoConnection);
      let app =
-       Serbet.application(
+       CustomSerbet.application(
          ~port=5000,
          [
            Endpoints.createStream(mongoConnection),
            Endpoints.createStreamTest(mongoConnection),
          ],
        );
-     //  let _ = setupCorsHack(. app.expressApp);
      ()->async;
    });
