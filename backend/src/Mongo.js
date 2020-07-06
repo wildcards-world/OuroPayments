@@ -1,4 +1,5 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectID } = require("mongodb");
+
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -60,8 +61,13 @@ const getStreams = async (streamsCollection) => {
 };
 
 const deleteStream = async (streamsCollection, id) => {
-  let streams = await streamsCollection.deleteOne({ _id: id });
-  return streams;
+  let result = await streamsCollection.deleteOne(
+    { _id: ObjectID(id) },
+    function (err) {
+      if (err) console.log(err);
+    }
+  );
+  return { success: true };
 };
 
 module.exports = { MongoConnect, addStream, getStreams, deleteStream };

@@ -32,8 +32,8 @@ external getStreamss:
   "getStreams";
 
 [@bs.module "./Mongo.js"]
-external deleteStreamss: (. collection, string) => Js.Promise.t(mongoResult) =
-  "deleteStreams";
+external deleteStreams: (. collection, string) => Js.Promise.t(mongoResult) =
+  "deleteStream";
 
 // [@bs.module "cors"] external setupCors: (. unit) => unit = "default";
 [@bs.module "./Mongo.js"]
@@ -212,11 +212,12 @@ module Endpoints = {
   let deleteStreamsEndpoint = collection =>
     Serbet.jsonEndpoint({
       verb: POST,
-      path: "/get-streams",
+      path: "/delete-stream",
       body_in_decode: body_in_del_decode,
       body_out_encode: mongoResult_encode,
       handler: ({id}, _req) => {
-        deleteStreamss(. collection, id);
+        Js.log(id);
+        deleteStreams(. collection, id);
       },
     });
 };

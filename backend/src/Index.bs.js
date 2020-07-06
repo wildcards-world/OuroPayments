@@ -124,7 +124,7 @@ function recipientDbArray_encode(v) {
 
 var getStreamss = MongoJs.getStreams;
 
-var deleteStreamss = MongoJs.deleteStreams;
+var deleteStreams = MongoJs.deleteStream;
 
 var testMongo = MongoJs.addStream;
 
@@ -286,12 +286,14 @@ function body_in_del_decode(v) {
 
 function deleteStreamsEndpoint(collection) {
   return Serbet.jsonEndpoint(undefined, {
-              path: "/get-streams",
+              path: "/delete-stream",
               verb: /* POST */1,
               body_in_decode: body_in_del_decode,
               body_out_encode: mongoResult_encode,
               handler: (function (param, _req) {
-                  return deleteStreamss(collection, param.id);
+                  var id = param.id;
+                  console.log(id);
+                  return deleteStreams(collection, id);
                 })
             });
 }
@@ -331,7 +333,7 @@ exports.mongoResult_encode = mongoResult_encode;
 exports.connectMongo = connectMongo;
 exports.recipientDbArray_encode = recipientDbArray_encode;
 exports.getStreamss = getStreamss;
-exports.deleteStreamss = deleteStreamss;
+exports.deleteStreams = deleteStreams;
 exports.testMongo = testMongo;
 exports.Endpoints = Endpoints;
 /*  Not a pure module */
