@@ -1,6 +1,27 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "main": "Index.bs.js",
+  "license": "MIT",
+  "scripts": {
+    "re:build": "bsb -make-world",
+    "re:start": "bsb -make-world -w",
+    "re:watch": "bsb -make-world -w",
+    "re:clean": "bsb -clean-world",
+    "start": "node ./src/Index.bs.js",
+    "watch": "nodemon ./src/Index.bs.js",
+    "generate-ppx-schema": "gqlschema https://api.thegraph.com/subgraphs/name/jasoons/always-for-sale-gallery -i -o graphql_schema.json"
+  },
+  "devDependencies": {
+    "bs-platform": "^8.0.3",
+    "decco": "^1.2.1",
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "bs-fetch": "^0.6.1",
+    "bs-let": "^0.1.16",
+    "isomorphic-fetch": "^2.2.1",
+    "serbet": "^0.4.0"
+  }
 }

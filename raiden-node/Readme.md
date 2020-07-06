@@ -18,6 +18,15 @@ https://github.com/raiden-network/awesome-raiden <- A few resources
 
 **_On mac you may need to run this as 'sudo'._**
 
+Or you will first need to give the requisite permissions to not run it using sudo.
+
+```
+sudo chmod 777 /Users/johanthan/Library/Logs/Raiden
+sudo chmod 777 /Users/johanthan/.raiden
+```
+
+These were mine. Yours will show when running it without sudo.
+
 ```
 ./raiden --address 0x351359fd8D35555b24d6C013E7060ABdcD3b43ED --keystore-path ./ --password-file ./password.txt --eth-rpc-endpoint "https://goerli.infura.io/v3/d72f8e8bf3d847f5bd8800bc961e392b" --network-id goerli --environment-type development
 ```
@@ -33,3 +42,13 @@ INFURA_KEY = d72f8e8bf3d847f5bd8800bc961e392b
 ```
 
 visit: http://localhost:5001
+
+for backend run
+
+```
+yarn re:watch
+yarn watch
+```
+
+Also obviously have the raiden node running.
+Then you can make api requests with the backend nicely :D
