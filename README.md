@@ -22,6 +22,10 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
 - Car rental - Pay each minute you use the car. (\*Thought: Pay based on km driven metric rather than just time)
 - Equipment rental - Pay each minute you are in the water surfing rather than being confined to a strict time schedule
 
+# Demo
+
+![Ouro Payments Banner](./ui/public/assets/fast-demo.gif)
+
 # Get started
 
 This repo contains 4 individual applications.
