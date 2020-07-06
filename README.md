@@ -24,6 +24,8 @@ Continuous payment streams allow people to capitalize on the opportunity cost of
 
 # Demo
 
+(🚨large file may take a while to load🚨)
+
 ![Ouro Payments Banner](./ui/public/assets/fast-demo.gif)
 
 # Get started
