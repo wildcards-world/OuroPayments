@@ -101,6 +101,21 @@ const Home = () => {
             {about ? "HOME" : "ABOUT"}
           </div>
         </div>
+        <Link href="/dapp/dashboard">
+          <div className="button">
+            <div
+              style={{
+                margin: "auto",
+                padding: "10%",
+                color: "white",
+                textAlign: "center",
+                transform: "translateY(7px)",
+              }}
+            >
+              STREAMS
+            </div>
+          </div>
+        </Link>
         <Link href="/dapp">
           <div className="button">
             <div

@@ -128,6 +128,9 @@ yarn desktop
 
 ## Further Work
 
+- Developing the application into a mobile app, using the raiden lite client in react native.
+- Integrate the raiden wizard steps for users to set up their raiden node
+
 ## Further Considerations
 
 - Deposit switching concern

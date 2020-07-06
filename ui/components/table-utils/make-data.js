@@ -18,13 +18,9 @@ const newStream = () => {
         ? "Daily"
         : "Every Minute",
     streamLength:
-      statusChance > 0.66
-        ? "1 day"
-        : statusChance > 0.33
-        ? "14 days"
-        : "30 days",
+      statusChance > 0.8 ? "1 day" : statusChance > 0.5 ? "14 days" : "30 days",
     amount: Math.floor(Math.random() * 100),
-    amountStreamed: 5,
+    amountStreamed: Math.floor(Math.random() * 70),
   };
 };
 
