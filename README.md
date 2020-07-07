@@ -1,5 +1,6 @@
 # Ouro Payments
 
+[Video Demo (Recommended)](https://youtu.be/qYQhBtupWAQ)
 https://ouropayments.com (Demo on Goerli using OuroDAI tokens)
 
 ![Ouro Payments Banner](./ui/public/assets/ouro-payments-banner.png)

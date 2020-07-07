@@ -28,7 +28,7 @@ sudo chmod 777 /Users/johanthan/.raiden
 These were mine. Yours will show when running it without sudo.
 
 ```
-./raiden --address 0x351359fd8D35555b24d6C013E7060ABdcD3b43ED --keystore-path ./ --password-file ./password.txt --eth-rpc-endpoint "https://goerli.infura.io/v3/d72f8e8bf3d847f5bd8800bc961e392b" --network-id goerli --environment-type development
+./raiden --address 0x351359fd8D35555b24d6C013E7060ABdcD3b43ED --keystore-path ./ --password-file ./password.txt --eth-rpc-endpoint "https://goerli.infura.io/v3/c401b8ee3a324619a453f2b5b2122d7a" --network-id goerli --environment-type development
 ```
 
 Alternatively you can run `make start` to run the default configuration.
