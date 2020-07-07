@@ -1,19 +1,7 @@
 open BsCron;
 open Globals;
-open Serbet.Endpoint;
-
-[@decco.encode]
-type recipientDbData = {
-  recipient: string,
-  addressTokenStream: string,
-  lengthOfPayment: int,
-  interval: int,
-  // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
-  rate: string,
-  deposit: string,
-  numerOfPaymentsMade: int,
-  totalNumberOfPaymentsToMake: int,
-};
+open Async;
+open Mongo;
 
 [@decco.encode]
 type makePaymentRequest = {
@@ -73,27 +61,33 @@ let makePayment = (recipientAddress, amount) => {
 
 let paymentHandler = (item: recipientDbData) =>
   if (item.numerOfPaymentsMade == item.totalNumberOfPaymentsToMake) {
-    {};
+    ();
   } else {
     let _ = makePayment(item.recipient, item.rate);
     // If it was a success, item.numerOfPaymentsMade ++;
     // Otherwise print out little shit error
-    {};
+    ();
   };
 
-let job =
-  CronJob.make(
-    `CronString("* * * * *"), // every minute
-    _ => {
-      Js.log("Printing every minute");
-      // Grab mongoData instead of dummy data later...
-      let _ = Array.map(dummyData, item => {item->paymentHandler});
-      ();
-    },
-    (),
-  );
+let startProcess = collection => {
+  let job =
+    CronJob.make(
+      `CronString("* * * * *"), // every minute
+      _ => {
+        let _aysncronousScope = {
+          Js.log("Printing every minute");
+          let%Async streams = Mongo.getStreamss(. collection);
+          // Grab mongoData instead of dummy data later...
+          let _ = Array.map(streams, item => {item->paymentHandler});
+          ()->async;
+        };
+        ();
+      },
+      (),
+    );
 
-let startProcess = () => start(job) /* execute micropayment amount to recipientAddress [POST request with parameters*/;
+  start(job);
+} /* execute micropayment amount to recipientAddress [POST request with parameters*/;
 
 // (1) Get list of payments to be made from mongoDB
 // Query mongoDB for streams,

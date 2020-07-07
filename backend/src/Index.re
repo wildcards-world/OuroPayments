@@ -16,32 +16,6 @@ type recipientData = {
   deposit: string,
 };
 
-[@decco.encode]
-type mongoResult = {success: bool};
-type collection;
-
-[@bs.module "./Mongo.js"]
-external connectMongo: (. unit) => Js.Promise.t(collection) = "MongoConnect";
-
-[@decco.encode]
-type recipientDbArray = array(Scheduler.recipientDbData);
-
-[@bs.module "./Mongo.js"]
-external getStreamss:
-  (. collection) => Js.Promise.t(array(Scheduler.recipientDbData)) =
-  "getStreams";
-
-[@bs.module "./Mongo.js"]
-external deleteStreams: (. collection, string) => Js.Promise.t(mongoResult) =
-  "deleteStream";
-
-// [@bs.module "cors"] external setupCors: (. unit) => unit = "default";
-[@bs.module "./Mongo.js"]
-external testMongo:
-  (. collection, string, Scheduler.recipientDbData) =>
-  Js.Promise.t(mongoResult) =
-  "addStream";
-
 module Endpoints = {
   [@decco.encode]
   type body_out = {
@@ -94,7 +68,7 @@ module Endpoints = {
         );
 
         let%Async resultMongoDb =
-          testMongo(.
+          Mongo.testMongo(.
             collection,
             recipient,
             {
@@ -145,7 +119,7 @@ module Endpoints = {
       verb: POST,
       path: "/create-stream-test",
       body_in_decode: recipientData_decode,
-      body_out_encode: mongoResult_encode,
+      body_out_encode: Mongo.mongoResult_encode,
       handler:
         (
           {
@@ -174,7 +148,7 @@ module Endpoints = {
         );
 
         let%Async result =
-          testMongo(.
+          Mongo.testMongo(.
             collection,
             recipient,
             {
@@ -196,7 +170,7 @@ module Endpoints = {
       verb: GET,
       path: "/get-streams",
       handler: _req => {
-        let%Async result = getStreamss(. collection);
+        let%Async result = Mongo.getStreamss(. collection);
 
         // Js.log("result");
         // Js.log(result);
@@ -214,15 +188,15 @@ module Endpoints = {
       verb: POST,
       path: "/delete-stream",
       body_in_decode: body_in_del_decode,
-      body_out_encode: mongoResult_encode,
+      body_out_encode: Mongo.mongoResult_encode,
       handler: ({id}, _req) => {
         Js.log(id);
-        deleteStreams(. collection, id);
+        Mongo.deleteStreams(. collection, id);
       },
     });
 };
 
-connectMongo(.)
+Mongo.connectMongo(.)
 |> Js.Promise.then_(mongoConnection => {
      Js.log("connected");
      let app =
@@ -236,7 +210,6 @@ connectMongo(.)
          ],
        );
 
+     //  Scheduler.startProcess(mongoConnection);
      ()->async;
    });
-
-Scheduler.startProcess();

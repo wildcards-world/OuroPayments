@@ -4,11 +4,10 @@
 var Async = require("serbet/src/Async.bs.js");
 var Decco = require("decco/src/Decco.js");
 var Fetch = require("bs-fetch/src/Fetch.js");
+var Mongo = require("./Mongo.bs.js");
 var Serbet = require("serbet/src/Serbet.bs.js");
 var Js_dict = require("bs-platform/lib/js/js_dict.js");
 var Js_json = require("bs-platform/lib/js/js_json.js");
-var Scheduler = require("./Scheduler.bs.js");
-var MongoJs = require("./Mongo.js");
 var Belt_Option = require("bs-platform/lib/js/belt_Option.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var CustomSerbet = require("./lib/CustomSerbet.bs.js");
@@ -109,25 +108,6 @@ function recipientData_decode(v) {
         };
 }
 
-function mongoResult_encode(v) {
-  return Js_dict.fromArray([[
-                "success",
-                Decco.boolToJson(v.success)
-              ]]);
-}
-
-var connectMongo = MongoJs.MongoConnect;
-
-function recipientDbArray_encode(v) {
-  return Decco.arrayToJson(Scheduler.recipientDbData_encode, v);
-}
-
-var getStreamss = MongoJs.getStreams;
-
-var deleteStreams = MongoJs.deleteStream;
-
-var testMongo = MongoJs.addStream;
-
 function body_out_encode(v) {
   return Js_dict.fromArray([
               [
@@ -180,7 +160,7 @@ function createStream(collection) {
                   var addressTokenStream = param.addressTokenStream;
                   var recipient = param.recipient;
                   console.log("recipient - " + (recipient + (", addressTokenStream - " + (addressTokenStream + (", lengthOfPayment - " + (String(lengthOfPayment) + (", interval - " + (String(interval) + (", rate" + (rate + (", deposit - " + deposit)))))))))));
-                  return Async.let_(testMongo(collection, recipient, {
+                  return Async.let_(Mongo.testMongo(collection, recipient, {
                                   recipient: recipient,
                                   addressTokenStream: addressTokenStream,
                                   lengthOfPayment: lengthOfPayment,
@@ -218,7 +198,7 @@ function createStreamTest(collection) {
               path: "/create-stream-test",
               verb: /* POST */1,
               body_in_decode: recipientData_decode,
-              body_out_encode: mongoResult_encode,
+              body_out_encode: Mongo.mongoResult_encode,
               handler: (function (param, _req) {
                   var deposit = param.deposit;
                   var rate = param.rate;
@@ -227,7 +207,7 @@ function createStreamTest(collection) {
                   var addressTokenStream = param.addressTokenStream;
                   var recipient = param.recipient;
                   console.log("recipient - " + (recipient + (", addressTokenStream - " + (addressTokenStream + (", lengthOfPayment - " + (String(lengthOfPayment) + (", interval - " + (String(interval) + (", rate" + (rate + (", deposit - " + deposit)))))))))));
-                  return Async.let_(testMongo(collection, recipient, {
+                  return Async.let_(Mongo.testMongo(collection, recipient, {
                                   recipient: recipient,
                                   addressTokenStream: addressTokenStream,
                                   lengthOfPayment: lengthOfPayment,
@@ -246,7 +226,7 @@ function getStreamsEndpoint(collection) {
               path: "/get-streams",
               verb: /* GET */0,
               handler: (function (_req) {
-                  return Async.let_(getStreamss(collection), (function (result) {
+                  return Async.let_(Mongo.getStreamss(collection), (function (result) {
                                 return Async.async({
                                             TAG: /* OkJson */4,
                                             _0: result
@@ -289,11 +269,11 @@ function deleteStreamsEndpoint(collection) {
               path: "/delete-stream",
               verb: /* POST */1,
               body_in_decode: body_in_del_decode,
-              body_out_encode: mongoResult_encode,
+              body_out_encode: Mongo.mongoResult_encode,
               handler: (function (param, _req) {
                   var id = param.id;
                   console.log(id);
-                  return deleteStreams(collection, id);
+                  return Mongo.deleteStreams(collection, id);
                 })
             });
 }
@@ -308,7 +288,7 @@ var Endpoints = {
   deleteStreamsEndpoint: deleteStreamsEndpoint
 };
 
-connectMongo().then(function (mongoConnection) {
+Mongo.connectMongo().then(function (mongoConnection) {
       console.log("connected");
       CustomSerbet.application(5000, {
             hd: createStream(mongoConnection),
@@ -326,14 +306,6 @@ connectMongo().then(function (mongoConnection) {
       return Async.async(undefined);
     });
 
-Scheduler.startProcess(undefined);
-
 exports.recipientData_decode = recipientData_decode;
-exports.mongoResult_encode = mongoResult_encode;
-exports.connectMongo = connectMongo;
-exports.recipientDbArray_encode = recipientDbArray_encode;
-exports.getStreamss = getStreamss;
-exports.deleteStreams = deleteStreams;
-exports.testMongo = testMongo;
 exports.Endpoints = Endpoints;
 /*  Not a pure module */
