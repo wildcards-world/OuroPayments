@@ -3,7 +3,11 @@ const { MongoClient, ObjectID } = require("mongodb");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const mongoUri = process.env.MONGO_URI;
+const mongoUri = !!process.env.USE_LOCAL_MONGO
+  ? process.env.LOCAL_DEV_URI
+  : process.env.MONGO_URI;
+console.log(mongoUri);
+
 const MongoConnect = async () => {
   const client = new MongoClient(mongoUri, { useNewUrlParser: true });
 
