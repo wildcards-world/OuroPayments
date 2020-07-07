@@ -31,6 +31,10 @@ external getStreamss:
   (. collection) => Js.Promise.t(array(Scheduler.recipientDbData)) =
   "getStreams";
 
+[@bs.module "./Mongo.js"]
+external deleteStreams: (. collection, string) => Js.Promise.t(mongoResult) =
+  "deleteStream";
+
 // [@bs.module "cors"] external setupCors: (. unit) => unit = "default";
 [@bs.module "./Mongo.js"]
 external testMongo:
@@ -201,6 +205,21 @@ module Endpoints = {
         // OkJson(result->recipientDbArray_encode)->async;
       },
     });
+
+  [@decco.decode]
+  type body_in_del = {id: string};
+
+  let deleteStreamsEndpoint = collection =>
+    Serbet.jsonEndpoint({
+      verb: POST,
+      path: "/delete-stream",
+      body_in_decode: body_in_del_decode,
+      body_out_encode: mongoResult_encode,
+      handler: ({id}, _req) => {
+        Js.log(id);
+        deleteStreams(. collection, id);
+      },
+    });
 };
 
 connectMongo(.)
@@ -213,6 +232,7 @@ connectMongo(.)
            Endpoints.createStream(mongoConnection),
            Endpoints.createStreamTest(mongoConnection),
            Endpoints.getStreamsEndpoint(mongoConnection),
+           Endpoints.deleteStreamsEndpoint(mongoConnection),
          ],
        );
 

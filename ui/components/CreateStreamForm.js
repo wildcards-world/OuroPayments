@@ -81,7 +81,8 @@ const CreateStreamForm = () => {
       lengthOfPayment: streamLength,
       interval: streamInterval,
       rate: "10",
-      deposit: amount,
+      // deposit: amount,
+      deposit: "100",
     };
 
     console.log(dataPack);

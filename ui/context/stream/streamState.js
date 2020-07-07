@@ -76,11 +76,16 @@ const StreamState = (props) => {
 
     try {
       // setLoading();
-      const res = await axios.post(
-        backendUrl + "/create-stream-test",
-        stream,
-        config
-      );
+      let endpoint = backendUrl + "/create-stream-test";
+      console.log(endpoint);
+      const res = await axios
+        .post(endpoint, stream, config)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
 
       dispatch({
         type: ADD_STREAM,
@@ -97,12 +102,17 @@ const StreamState = (props) => {
 
   // Delete STREAM
   const deleteStream = async (id) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
     try {
       setLoading();
-      await axios.delete(backendUrl + `/api/streams/delete/${id}`);
+      await axios.post(backendUrl + `/delete-stream`, { id }, config);
       dispatch({
         type: DELETE_STREAM,
-        payload: id,
+        payload: { id },
       });
     } catch (err) {
       dispatch({

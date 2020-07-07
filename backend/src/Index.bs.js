@@ -124,6 +124,8 @@ function recipientDbArray_encode(v) {
 
 var getStreamss = MongoJs.getStreams;
 
+var deleteStreams = MongoJs.deleteStream;
+
 var testMongo = MongoJs.addStream;
 
 function body_out_encode(v) {
@@ -254,12 +256,56 @@ function getStreamsEndpoint(collection) {
             });
 }
 
+function body_in_del_decode(v) {
+  var dict = Js_json.classify(v);
+  if (typeof dict === "number") {
+    return Decco.error(undefined, "Not an object", v);
+  }
+  if (dict.TAG !== /* JSONObject */2) {
+    return Decco.error(undefined, "Not an object", v);
+  }
+  var id = Decco.stringFromJson(Belt_Option.getWithDefault(Js_dict.get(dict._0, "id"), null));
+  if (!id.TAG) {
+    return {
+            TAG: /* Ok */0,
+            _0: {
+              id: id._0
+            }
+          };
+  }
+  var e = id._0;
+  return {
+          TAG: /* Error */1,
+          _0: {
+            path: ".id" + e.path,
+            message: e.message,
+            value: e.value
+          }
+        };
+}
+
+function deleteStreamsEndpoint(collection) {
+  return Serbet.jsonEndpoint(undefined, {
+              path: "/delete-stream",
+              verb: /* POST */1,
+              body_in_decode: body_in_del_decode,
+              body_out_encode: mongoResult_encode,
+              handler: (function (param, _req) {
+                  var id = param.id;
+                  console.log(id);
+                  return deleteStreams(collection, id);
+                })
+            });
+}
+
 var Endpoints = {
   body_out_encode: body_out_encode,
   createChannelRequest_encode: createChannelRequest_encode,
   createStream: createStream,
   createStreamTest: createStreamTest,
-  getStreamsEndpoint: getStreamsEndpoint
+  getStreamsEndpoint: getStreamsEndpoint,
+  body_in_del_decode: body_in_del_decode,
+  deleteStreamsEndpoint: deleteStreamsEndpoint
 };
 
 connectMongo().then(function (mongoConnection) {
@@ -270,7 +316,10 @@ connectMongo().then(function (mongoConnection) {
               hd: createStreamTest(mongoConnection),
               tl: {
                 hd: getStreamsEndpoint(mongoConnection),
-                tl: /* [] */0
+                tl: {
+                  hd: deleteStreamsEndpoint(mongoConnection),
+                  tl: /* [] */0
+                }
               }
             }
           });
@@ -284,6 +333,7 @@ exports.mongoResult_encode = mongoResult_encode;
 exports.connectMongo = connectMongo;
 exports.recipientDbArray_encode = recipientDbArray_encode;
 exports.getStreamss = getStreamss;
+exports.deleteStreams = deleteStreams;
 exports.testMongo = testMongo;
 exports.Endpoints = Endpoints;
 /*  Not a pure module */
