@@ -1,62 +1,51 @@
 open BsCron;
 open Globals;
-open Serbet.Endpoint;
-
-[@decco.encode]
-type recipientDbData = {
-  recipient: string,
-  addressTokenStream: string,
-  lengthOfPayment: int,
-  interval: int,
-  // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
-  rate: string,
-  deposit: string,
-  numerOfPaymentsMade: int,
-  totalNumberOfPaymentsToMake: int,
-};
+open Async;
+open Mongo;
 
 [@decco.encode]
 type makePaymentRequest = {
   amount: string,
-  identifier: string,
+  identifier: option(string),
 };
 
 let dummyData = [|
   {
-    recipient: "0x4AA554636eBAf8C2d42dE1b20DaB91441b8d2eCF",
+    recipient: "0xc788F08a2aAf539111e2a2D85BD4B324FBE37B15",
     addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
     lengthOfPayment: 86400, // seconds [86400 equals one day.] Must be a multiple of 60
     interval: 60, // this will always be 60 for our demo
     // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
-    rate: "5",
+    rate: "1",
     deposit: "7200",
     numerOfPaymentsMade: 0,
     totalNumberOfPaymentsToMake: 1440,
   },
-  {
-    recipient: "0x365D295f7FFc5aae082FD29FD0F6769ba15FDf39",
-    addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
-    lengthOfPayment: 86400, // seconds [86400 equals one day.] Must be a multiple of 60
-    interval: 60, // this will always be 60 for our demo
-    // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
-    rate: "10",
-    deposit: "14400",
-    numerOfPaymentsMade: 0,
-    totalNumberOfPaymentsToMake: 1440,
-  },
+  // {
+  //   recipient: "0xc788F08a2aAf539111e2a2D85BD4B324FBE37B15",
+  //   addressTokenStream: "0xb38981469B7235c42DDa836295bE8825Eb4A6389",
+  //   lengthOfPayment: 86400, // seconds [86400 equals one day.] Must be a multiple of 60
+  //   interval: 60, // this will always be 60 for our demo
+  //   // TODO: these values should be BigInt and use `@decco.codec` as the conversion function
+  //   rate: "1",
+  //   deposit: "14400",
+  //   numerOfPaymentsMade: 0,
+  //   totalNumberOfPaymentsToMake: 1440,
+  // },
 |];
 
 let makePayment = (recipientAddress, amount) => {
   let requestString =
     "http://localhost:5001/api/v1/payments/0xb38981469B7235c42DDa836295bE8825Eb4A6389/"
     ++ recipientAddress;
+  Js.log(amount);
   Fetch.fetchWithInit(
     requestString,
     Fetch.RequestInit.make(
       ~method_=Post,
       ~body=
         Fetch.BodyInit.make(
-          {amount, identifier: "optional identifier blah blah"}
+          {amount, identifier: None}
           ->makePaymentRequest_encode
           ->Js.Json.stringify,
         ),
@@ -72,27 +61,33 @@ let makePayment = (recipientAddress, amount) => {
 
 let paymentHandler = (item: recipientDbData) =>
   if (item.numerOfPaymentsMade == item.totalNumberOfPaymentsToMake) {
-    {};
+    ();
   } else {
     let _ = makePayment(item.recipient, item.rate);
     // If it was a success, item.numerOfPaymentsMade ++;
     // Otherwise print out little shit error
-    {};
+    ();
   };
 
-let job =
-  CronJob.make(
-    `CronString("* * * * *"), // every minute
-    _ => {
-      Js.log("Printing every minute");
-      // Grab mongoData instead of dummy data later...
-      let _ = Array.map(dummyData, item => {item->paymentHandler});
-      ();
-    },
-    (),
-  );
+let startProcess = collection => {
+  let job =
+    CronJob.make(
+      `CronString("* * * * *"), // every minute
+      _ => {
+        let _aysncronousScope = {
+          Js.log("Printing every minute");
+          let%Async streams = Mongo.getStreamss(. collection);
+          // Grab mongoData instead of dummy data later...
+          let _ = Array.map(streams, item => {item->paymentHandler});
+          ()->async;
+        };
+        ();
+      },
+      (),
+    );
 
-let startProcess = () => start(job) /* execute micropayment amount to recipientAddress [POST request with parameters*/;
+  start(job);
+} /* execute micropayment amount to recipientAddress [POST request with parameters*/;
 
 // (1) Get list of payments to be made from mongoDB
 // Query mongoDB for streams,

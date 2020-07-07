@@ -9,6 +9,11 @@ Create stream:
 
 `[%raw "require('isomorphic-fetch')"]; Fetch.fetchWithInit( "https://www.cryptovoxels.com/grid/parcels/2324", Fetch.RequestInit.make( ~method_=Put, ~body= Fetch.BodyInit.make( Js.Json.stringifyAny({ name: Js.Nullable.null, description: Js.Nullable.null, images: [||], sandbox: false, contributors: newOwner ->Js.Json.decodeString ->Option.mapWithDefault([||], addressStr => [|addressStr|] ), content: { scripting: false, }, }) ->Option.mapWithDefault("{}", a => a), ), ~headers= Fetch.HeadersInit.make({ "Accept": "application/json", "Cache-Control": "no-cache", "Content-Type": "application/json", "Pragma": "no-cache", "Cookie": cvAuthString, }), (), ), ) |> then_(Fetch.Response.json) |> then_(json => { let result = json->cvResponse_decode; result |> resolve; }) )`
 
+curl -i -X POST \
+http://localhost:5001/api/v1/payments/0xb38981469B7235c42DDa836295bE8825Eb4A6389/0x4AA554636eBAf8C2d42dE1b20DaB91441b8d2eCF \
+-H 'Content-Type: application/json' \
+--data-raw '{"amount":"1"}'
+
 // Cron job....
 Raiden command.
 
@@ -17,10 +22,21 @@ Raiden command.
 
 Person comes on.
 -amount = \$1000
--month = 100 days (over how long)
--interval = minutes
+-month = 30 days (over how long)
+-interval = 1 minutes [ONLY]
 
 1000 / 80 000 every minute
 
+1440 minutes in a day.
+
+1440 \* 30
+
 mapping(recipent => cronjobInfo)
-{amountOfMicroPayment, amountTotal, recipient, endCronjob, sendCronJob, interval}
+{amountOfMicroPayment, amountTotal, recipient, endTime, sendCronJob, interval}
+
+1minCronJob = {
+listOfRecipents =
+P
+}
+
+1HourCronJob
