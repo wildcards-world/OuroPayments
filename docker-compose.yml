@@ -1,0 +1,89 @@
+version: "3"
+
+services:
+  raiden1:
+    build:
+      context: ./raiden-node
+      dockerfile: Dockerfile
+    # image: raiden
+    container_name: raiden1
+    # restart: unless-stopped
+    # env_file: .env
+    # environment:
+    #   - MONGO_USERNAME=$MONGO_USERNAME
+    #   - MONGO_PASSWORD=$MONGO_PASSWORD
+    #   - MONGO_HOSTNAME=db
+    #   - MONGO_PORT=$MONGO_PORT
+    #   - MONGO_DB=$MONGO_DB
+    ports:
+      - "5001:5001"
+    volumes:
+      - raiden1Data:/root/.raiden
+      # - node_modules:/home/node/app/node_modules
+    networks:
+      - app-network
+    command: make start
+  raiden2:
+    build:
+      context: ./raiden-node
+      dockerfile: Dockerfile
+    # image: raiden
+    container_name: raiden2
+    restart: unless-stopped
+    # env_file: .env
+    environment:
+      - ETH_ADDRESS=0xc788F08a2aAf539111e2a2D85BD4B324FBE37B15
+    ports:
+      - "5002:5001"
+    volumes:
+      - raiden2Data:/root/.raiden
+      # - node_modules:/home/node/app/node_modules
+    networks:
+      - app-network
+    command: make start
+  # nodejs-be:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   image: nodejs-be
+  #   container_name: nodejs-be
+  #   restart: unless-stopped
+  #   env_file: .env
+  #   environment:
+  #     - MONGO_USERNAME=$MONGO_USERNAME
+  #     - MONGO_PASSWORD=$MONGO_PASSWORD
+  #     - MONGO_HOSTNAME=db
+  #     - MONGO_PORT=$MONGO_PORT
+  #     - MONGO_DB=$MONGO_DB
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - .:/home/node/app
+  #     # - node_modules:/home/node/app/node_modules
+  #   networks:
+  #     - app-network
+  #   command: make start-in-docker
+  db:
+    image: mongo:4.2.1
+    container_name: db
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+    ports:
+      - "27017:27017"
+    # volumes:
+    #   - dbdata:/data/db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+  node_modules:
+  raiden1Data:
+  raiden2Data:
